@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E78D7DD282E6422003F6911 /* TravelLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E78D7DC282E6422003F6911 /* TravelLocationViewModel.swift */; };
 		5EC88D4F282D400E00F667CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D4E282D400E00F667CA /* AppDelegate.swift */; };
 		5EC88D51282D400E00F667CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D50282D400E00F667CA /* SceneDelegate.swift */; };
-		5EC88D53282D400E00F667CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D52282D400E00F667CA /* ViewController.swift */; };
+		5EC88D53282D400E00F667CA /* TravelLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D52282D400E00F667CA /* TravelLocationViewController.swift */; };
 		5EC88D56282D400E00F667CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC88D54282D400E00F667CA /* Main.storyboard */; };
 		5EC88D59282D400E00F667CA /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D57282D400E00F667CA /* VirtualTourist.xcdatamodeld */; };
 		5EC88D5B282D401000F667CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC88D5A282D401000F667CA /* Assets.xcassets */; };
@@ -17,6 +18,8 @@
 		5EC88D69282D401100F667CA /* VirtualTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D68282D401100F667CA /* VirtualTouristTests.swift */; };
 		5EC88D73282D401100F667CA /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D72282D401100F667CA /* VirtualTouristUITests.swift */; };
 		5EC88D75282D401100F667CA /* VirtualTouristUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D74282D401100F667CA /* VirtualTouristUITestsLaunchTests.swift */; };
+		5ED91C84282E7EA0006A15DA /* UserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED91C83282E7EA0006A15DA /* UserDefaultsProtocol.swift */; };
+		5ED91C86282E8009006A15DA /* UserDataDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED91C85282E8009006A15DA /* UserDataDefaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E78D7DC282E6422003F6911 /* TravelLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationViewModel.swift; sourceTree = "<group>"; };
 		5EC88D4B282D400E00F667CA /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC88D4E282D400E00F667CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC88D50282D400E00F667CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5EC88D52282D400E00F667CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5EC88D52282D400E00F667CA /* TravelLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationViewController.swift; sourceTree = "<group>"; };
 		5EC88D55282D400E00F667CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5EC88D58282D400E00F667CA /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		5EC88D5A282D401000F667CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +55,8 @@
 		5EC88D6E282D401100F667CA /* VirtualTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC88D72282D401100F667CA /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		5EC88D74282D401100F667CA /* VirtualTouristUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5ED91C83282E7EA0006A15DA /* UserDefaultsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsProtocol.swift; sourceTree = "<group>"; };
+		5ED91C85282E8009006A15DA /* UserDataDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataDefaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +84,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E78D7D9282E60FC003F6911 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5EC88D52282D400E00F667CA /* TravelLocationViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		5E78D7DA282E63D3003F6911 /*  View Model */ = {
+			isa = PBXGroup;
+			children = (
+				5E78D7DC282E6422003F6911 /* TravelLocationViewModel.swift */,
+			);
+			name = " View Model";
+			sourceTree = "<group>";
+		};
 		5EC88D42282D400E00F667CA = {
 			isa = PBXGroup;
 			children = (
@@ -101,9 +123,12 @@
 		5EC88D4D282D400E00F667CA /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
+				5ED91C7B282E7545006A15DA /* UserData */,
 				5EC88D4E282D400E00F667CA /* AppDelegate.swift */,
 				5EC88D50282D400E00F667CA /* SceneDelegate.swift */,
-				5EC88D52282D400E00F667CA /* ViewController.swift */,
+				5ED91C82282E7E66006A15DA /* UserData */,
+				5E78D7D9282E60FC003F6911 /* View Controllers */,
+				5E78D7DA282E63D3003F6911 /*  View Model */,
 				5EC88D54282D400E00F667CA /* Main.storyboard */,
 				5EC88D5A282D401000F667CA /* Assets.xcassets */,
 				5EC88D5C282D401000F667CA /* LaunchScreen.storyboard */,
@@ -130,6 +155,22 @@
 			path = VirtualTouristUITests;
 			sourceTree = "<group>";
 		};
+		5ED91C7B282E7545006A15DA /* UserData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UserData;
+			sourceTree = "<group>";
+		};
+		5ED91C82282E7E66006A15DA /* UserData */ = {
+			isa = PBXGroup;
+			children = (
+				5ED91C83282E7EA0006A15DA /* UserDefaultsProtocol.swift */,
+				5ED91C85282E8009006A15DA /* UserDataDefaults.swift */,
+			);
+			name = UserData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,6 +178,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EC88D78282D401100F667CA /* Build configuration list for PBXNativeTarget "VirtualTourist" */;
 			buildPhases = (
+				5E78D7D8282E5C70003F6911 /* ShellScript */,
 				5EC88D47282D400E00F667CA /* Sources */,
 				5EC88D48282D400E00F667CA /* Frameworks */,
 				5EC88D49282D400E00F667CA /* Resources */,
@@ -256,14 +298,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5E78D7D8282E5C70003F6911 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint autocorrect\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5EC88D47282D400E00F667CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E78D7DD282E6422003F6911 /* TravelLocationViewModel.swift in Sources */,
+				5ED91C86282E8009006A15DA /* UserDataDefaults.swift in Sources */,
 				5EC88D59282D400E00F667CA /* VirtualTourist.xcdatamodeld in Sources */,
-				5EC88D53282D400E00F667CA /* ViewController.swift in Sources */,
+				5EC88D53282D400E00F667CA /* TravelLocationViewController.swift in Sources */,
 				5EC88D4F282D400E00F667CA /* AppDelegate.swift in Sources */,
+				5ED91C84282E7EA0006A15DA /* UserDefaultsProtocol.swift in Sources */,
 				5EC88D51282D400E00F667CA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
