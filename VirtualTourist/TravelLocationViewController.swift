@@ -1,11 +1,20 @@
 import UIKit
 import MapKit
 
-class TravelLocationViewController: UIViewController {
+final class TravelLocationViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
-    private let viewModel = TravelLocationViewModel(userDefaults: UserDataDefaults())
+    private let viewModel: TravelLocationViewModel
+
+    required init?(coder: NSCoder, viewModel: TravelLocationViewModel) {
+        self.viewModel = viewModel
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("Use `init(coder:viewModel:)` to instantiate a `ViewController` instance.")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +46,7 @@ class TravelLocationViewController: UIViewController {
         if gestureRecognizer.state == UILongPressGestureRecognizer.State.ended {
             let touchLocation = gestureRecognizer.location(in: mapView)
 
-            //convert CGPoint to CLLocationCoordinate2D
+            // convert CGPoint to CLLocationCoordinate2D
             let coordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
             viewModel.plotNewPin(coordinate: coordinate,
                                  mapView: mapView)

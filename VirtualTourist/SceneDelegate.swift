@@ -15,7 +15,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
 
-        guard (scene as? UIWindowScene) != nil else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        // Initialize Root View Controller
+        let rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController { coder in
+            TravelLocationViewController(coder: coder,
+                                         viewModel: TravelLocationViewModel(userDefaults: UserDataDefaults()))
+        }
+
+        // Initialize Window
+        window = UIWindow(windowScene: windowScene)
+
+        // Configure Window
+        window?.rootViewController = rootViewController
+
+        // Make Window Key Window
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -26,5 +41,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
+
 
 }
