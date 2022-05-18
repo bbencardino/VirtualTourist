@@ -26,6 +26,7 @@ class TravelLocationViewModel {
         }
     }
 
+    // MARK: - User Defaults
     func saveLocationHasBeenLoaded() {
         userDefaults.write(true, forKey: "locationHasBeenLoaded")
     }
@@ -38,5 +39,18 @@ class TravelLocationViewModel {
     func saveSpanPreferences(latitudeDelta: Double, longitudeDelta: Double) {
         userDefaults.write(latitudeDelta, forKey: "latitudeDelta")
         userDefaults.write(longitudeDelta, forKey: "longitudeDelta")
+    }
+
+    // MARK: - Map View
+
+    func plotNewPin(coordinate: CLLocationCoordinate2D, mapView: MKMapView) {
+        let pin = createAnnotation(coordinate: coordinate)
+        mapView.addAnnotation(pin)
+    }
+
+    private func createAnnotation(coordinate: CLLocationCoordinate2D) -> MKPointAnnotation {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        return annotation
     }
 }

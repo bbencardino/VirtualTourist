@@ -9,11 +9,9 @@ class TravelLocationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(mapView.region.center)
-
         mapView.region.center = viewModel.center
         mapView.region.span = viewModel.zoomLevel
-
+        setMapView()
         viewModel.saveLocationHasBeenLoaded()
     }
 
@@ -25,5 +23,24 @@ class TravelLocationViewController: UIViewController {
         viewModel.saveCenterPreferences(latitude: center.latitude,
                                        longitude: center.longitude)
         viewModel.saveSpanPreferences(latitudeDelta: span.latitudeDelta, longitudeDelta: span.longitudeDelta)
+    }
+
+    // MARK: - MapView
+
+    private func setMapView() {
+        let longPress = UILongPressGestureRecognizer(target: self,
+                                                     action: #selector(longPressAction(gestureRecognizer:)))
+        mapView.addGestureRecognizer(longPress)
+    }
+
+     @objc private func longPressAction(gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == UILongPressGestureRecognizer.State.ended {
+            let touchLocation = gestureRecognizer.location(in: mapView)
+
+            //convert CGPoint to CLLocationCoordinate2D
+            let coordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
+            viewModel.plotNewPin(coordinate: coordinate,
+                                 mapView: mapView)
+        }
     }
 }
