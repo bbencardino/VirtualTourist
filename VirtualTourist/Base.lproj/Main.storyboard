@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,11 +14,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TravelLocationViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="m5s-qs-O29">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -36,6 +37,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="124.6376811594203" y="83.705357142857139"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Go8-Mo-sVB">
+            <objects>
+                <viewController id="hV9-r9-VJf" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BVk-6t-fPC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vTF-UW-1aF">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="304"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="304" id="LYN-aY-lkt"/>
+                                </constraints>
+                            </mapView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="azT-0S-2kg">
+                                <rect key="frame" x="0.0" y="298" width="375" height="433"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aiI-2C-9Ax">
+                                    <size key="itemSize" width="153" height="148"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NAM-06-G2b">
+                                        <rect key="frame" x="0.0" y="0.0" width="153" height="148"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="iF1-tM-cvq">
+                                            <rect key="frame" x="0.0" y="0.0" width="153" height="148"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="153" height="148"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XbO-s5-E0j">
+                                <rect key="frame" x="154" y="739" width="67" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="uQz-Qd-L2a"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uQz-Qd-L2a" firstAttribute="bottom" secondItem="XbO-s5-E0j" secondAttribute="bottom" constant="8" id="HWf-91-VQC"/>
+                            <constraint firstItem="XbO-s5-E0j" firstAttribute="centerX" secondItem="BVk-6t-fPC" secondAttribute="centerX" id="M1v-id-7o5"/>
+                            <constraint firstItem="XbO-s5-E0j" firstAttribute="top" secondItem="azT-0S-2kg" secondAttribute="bottom" constant="8" symbolic="YES" id="RYm-g6-fFr"/>
+                            <constraint firstItem="vTF-UW-1aF" firstAttribute="top" secondItem="BVk-6t-fPC" secondAttribute="top" id="Yhn-fL-XHk"/>
+                            <constraint firstItem="XbO-s5-E0j" firstAttribute="top" secondItem="azT-0S-2kg" secondAttribute="bottom" constant="8" id="fGK-4J-y43"/>
+                            <constraint firstItem="azT-0S-2kg" firstAttribute="leading" secondItem="BVk-6t-fPC" secondAttribute="leading" id="jFD-rB-dHV"/>
+                            <constraint firstItem="XbO-s5-E0j" firstAttribute="centerX" secondItem="azT-0S-2kg" secondAttribute="centerX" id="s8H-Y6-qpC"/>
+                            <constraint firstItem="azT-0S-2kg" firstAttribute="leading" secondItem="vTF-UW-1aF" secondAttribute="leading" id="udM-PT-yXA"/>
+                            <constraint firstItem="azT-0S-2kg" firstAttribute="top" secondItem="uQz-Qd-L2a" secondAttribute="top" constant="254" id="wYB-gg-rFd"/>
+                            <constraint firstItem="XbO-s5-E0j" firstAttribute="centerX" secondItem="vTF-UW-1aF" secondAttribute="centerX" id="z4Q-Wn-6PQ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qHq-a6-4Lr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="979.71014492753636" y="99.776785714285708"/>
         </scene>
     </scenes>
     <resources>

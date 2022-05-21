@@ -1,12 +1,4 @@
-//
-//  VirtualTouristTests.swift
-//  VirtualTouristTests
-//
-//  Created by Isabella Bencardino on 12/05/2022.
-//
-
 import XCTest
-@testable import VirtualTourist
 
 class VirtualTouristTests: XCTestCase {
 

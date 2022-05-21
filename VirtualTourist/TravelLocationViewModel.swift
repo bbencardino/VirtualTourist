@@ -42,7 +42,6 @@ class TravelLocationViewModel {
     }
 
     // MARK: - Map View
-
     func plotNewPin(coordinate: CLLocationCoordinate2D, mapView: MKMapView) {
         let pin = createAnnotation(coordinate: coordinate)
         mapView.addAnnotation(pin)
