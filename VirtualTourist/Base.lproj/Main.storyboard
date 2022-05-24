@@ -32,16 +32,17 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="m5s-qs-O29" id="Qha-AQ-J7t"/>
+                        <segue destination="hV9-r9-VJf" kind="presentation" identifier="toPhotoAlbum" modalPresentationStyle="fullScreen" id="Pht-eA-ZdJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="124.6376811594203" y="83.705357142857139"/>
         </scene>
-        <!--View Controller-->
+        <!--Photo Album View Controller-->
         <scene sceneID="Go8-Mo-sVB">
             <objects>
-                <viewController id="hV9-r9-VJf" sceneMemberID="viewController">
+                <viewController id="hV9-r9-VJf" customClass="PhotoAlbumViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BVk-6t-fPC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,28 +56,45 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="azT-0S-2kg">
                                 <rect key="frame" x="0.0" y="298" width="375" height="433"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aiI-2C-9Ax">
-                                    <size key="itemSize" width="153" height="148"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aiI-2C-9Ax">
+                                    <size key="itemSize" width="120" height="120"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NAM-06-G2b">
-                                        <rect key="frame" x="0.0" y="0.0" width="153" height="148"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="NAM-06-G2b" customClass="PhotoAlbumCell" customModule="VirtualTourist" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="iF1-tM-cvq">
-                                            <rect key="frame" x="0.0" y="0.0" width="153" height="148"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pPF-LE-jSo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="pPF-LE-jSo" firstAttribute="top" secondItem="iF1-tM-cvq" secondAttribute="top" id="JQz-Fb-GfK"/>
+                                                <constraint firstAttribute="trailing" secondItem="pPF-LE-jSo" secondAttribute="trailing" id="elh-sd-guL"/>
+                                                <constraint firstAttribute="bottom" secondItem="pPF-LE-jSo" secondAttribute="bottom" id="jm3-c1-c4Z"/>
+                                                <constraint firstItem="pPF-LE-jSo" firstAttribute="leading" secondItem="iF1-tM-cvq" secondAttribute="leading" id="yOY-GT-bD5"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="153" height="148"/>
+                                        <size key="customSize" width="120" height="120"/>
+                                        <connections>
+                                            <outlet property="imageView" destination="pPF-LE-jSo" id="qTM-ew-61L"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XbO-s5-E0j">
-                                <rect key="frame" x="154" y="739" width="67" height="31"/>
+                                <rect key="frame" x="126.66666666666666" y="739" width="121.66666666666666" height="31"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="New Collection"/>
+                                <connections>
+                                    <action selector="createNewCollection:" destination="hV9-r9-VJf" eventType="touchUpInside" id="au5-6c-I7w"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uQz-Qd-L2a"/>
@@ -94,6 +112,12 @@
                             <constraint firstItem="XbO-s5-E0j" firstAttribute="centerX" secondItem="vTF-UW-1aF" secondAttribute="centerX" id="z4Q-Wn-6PQ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="qI0-1w-i24"/>
+                    <connections>
+                        <outlet property="collectionView" destination="azT-0S-2kg" id="3Jq-vo-chM"/>
+                        <outlet property="flowLayout" destination="aiI-2C-9Ax" id="mig-Fz-eo0"/>
+                        <outlet property="mapView" destination="vTF-UW-1aF" id="Ys2-wF-m7d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qHq-a6-4Lr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

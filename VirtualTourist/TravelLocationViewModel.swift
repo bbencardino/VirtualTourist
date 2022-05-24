@@ -2,6 +2,7 @@ import MapKit
 import CoreLocation
 
 class TravelLocationViewModel {
+
     let userDefaults: UserDefaultsProtocol
     let zoomLevel: MKCoordinateSpan
     let center: CLLocationCoordinate2D

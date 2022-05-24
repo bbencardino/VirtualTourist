@@ -37,6 +37,7 @@ final class TravelLocationViewController: UIViewController {
     // MARK: - MapView
 
     private func setMapView() {
+        mapView.delegate = self
         let longPress = UILongPressGestureRecognizer(target: self,
                                                      action: #selector(longPressAction(gestureRecognizer:)))
         mapView.addGestureRecognizer(longPress)
@@ -51,5 +52,29 @@ final class TravelLocationViewController: UIViewController {
             viewModel.plotNewPin(coordinate: coordinate,
                                  mapView: mapView)
         }
+    }
+    // MARK: - Photo Album View Model
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPhotoAlbum" {
+            guard let destination = segue.destination as? PhotoAlbumViewController else { return }
+            destination.viewModel = makePhotoAlbumViewModel()
+        }
+    }
+
+    // 1. create a private function to 'make' a view model
+    // 2. no arguments, the view model itself as a return
+    // 3. i think that it
+
+    private func makePhotoAlbumViewModel() -> PhotoAlbumViewModel {
+        // ?
+        return PhotoAlbumViewModel()
+    }
+}
+// MARK: - Map View Delegate
+extension TravelLocationViewController: MKMapViewDelegate {
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        performSegue(withIdentifier: "toPhotoAlbum", sender: nil)
     }
 }
