@@ -2,6 +2,8 @@ import UIKit
 
 class PhotoAlbumDataSource: NSObject, UICollectionViewDataSource {
 
+    let placeholder = UIImage(named: "photo-paceholder")
+
     let viewModel: PhotoAlbumViewModel
     init(viewModel: PhotoAlbumViewModel) {
         self.viewModel = viewModel
@@ -19,14 +21,31 @@ class PhotoAlbumDataSource: NSObject, UICollectionViewDataSource {
             fatalError("error: collection view cell is not a type of PhotoAlbumCell")
         }
 
-        cell.imageView.image = updateImages()
+        cell.imageView.image = placeholder
+
+        convertImages { result in
+            switch result {
+            case .success(let images):
+                DispatchQueue.main.async {
+                    cell.imageView.image = images[indexPath.row]
+                }
+            case .failure:
+                DispatchQueue.main.async {
+                    cell.imageView.image = self.placeholder
+                }
+            }
+        }
+
         return cell
     }
-
     // MARK: - Update functions
 
-    private func updateImages() -> UIImage? {
-        let imageName = viewModel.getImageName()
-        return UIImage(named: imageName)
+    private func convertImages(completion: @escaping (Result<[UIImage?], Error>) -> Void) {
+        var images: [UIImage?] = []
+
+        viewModel.downloadImages { datas in
+            images = datas.map { UIImage(data: $0!)}
+            completion(.success(images))
+        }
     }
 }

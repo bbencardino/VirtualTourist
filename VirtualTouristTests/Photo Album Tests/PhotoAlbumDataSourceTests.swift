@@ -3,29 +3,26 @@ import XCTest
 
 class PhotoAlbumDataSourceTests: XCTestCase {
 
-    // 1. create a mock repository 
-    // 2. Get the view Model and data source
-
-    let collectionView: UICollectionView = UICollectionView(frame: .zero,
-                                                            collectionViewLayout: type(of: UICollectionViewLayout()).init())
+    var viewModel: PhotoAlbumViewModel!
+    var dataSource: PhotoAlbumDataSource!
+    var collectionView: UICollectionView!
 
     override func setUpWithError() throws {
-
+        viewModel = PhotoAlbumViewModel(service: MockRepository(),
+                                        latitude: -23.000372,
+                                        longitude: -43.365894)
+        dataSource = PhotoAlbumDataSource(viewModel: viewModel)
+        collectionView = UICollectionView(frame: .zero,
+                                          collectionViewLayout: type(of: UICollectionViewLayout()).init())
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    override func tearDownWithError() throws {}
 
-    func testNumbersOfItems_is20() {
-        // GIVEN
-        let viewModel = PhotoAlbumViewModel()
-        let dataSource = PhotoAlbumDataSource(viewModel: viewModel)
-
+    func testNumbersOfItems() {
         // WHEN
         let itensInRow = dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
 
         // THEN
-        XCTAssertEqual(itensInRow, 20) //hard code tho
+        XCTAssertEqual(itensInRow, viewModel.numberOfItems())
     }
 }

@@ -12,14 +12,18 @@ class PhotoAlbumViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.dataSource = photoAlbumDataSource
-        configurePhotoAlbum()
+        viewModel.getPhotosFromFlickr { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.dataSource = self?.photoAlbumDataSource
+                self?.configurePhotoAlbumLayout()
+            }
+        }
     }
 
     @IBAction func createNewCollection(_ sender: UIButton) {}
 
     // MARK: - Private Methods
-    private func configurePhotoAlbum() {
+    private func configurePhotoAlbumLayout() {
 
         let space: CGFloat = 3
         let dimension = (view.frame.size.width - (2 * space)) / space

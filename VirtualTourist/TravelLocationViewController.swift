@@ -62,13 +62,10 @@ final class TravelLocationViewController: UIViewController {
         }
     }
 
-    // 1. create a private function to 'make' a view model
-    // 2. no arguments, the view model itself as a return
-    // 3. i think that it
-
     private func makePhotoAlbumViewModel() -> PhotoAlbumViewModel {
-        // ?
-        return PhotoAlbumViewModel()
+        return PhotoAlbumViewModel(service: FlickrAPI(),
+                                   latitude: viewModel.center.latitude,
+                                   longitude: viewModel.center.longitude)
     }
 }
 // MARK: - Map View Delegate
