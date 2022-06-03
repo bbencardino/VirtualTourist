@@ -40,12 +40,21 @@ class PhotoAlbumDataSource: NSObject, UICollectionViewDataSource {
     }
     // MARK: - Update functions
 
-    private func convertImages(completion: @escaping (Result<[UIImage?], Error>) -> Void) {
-        var images: [UIImage?] = []
+    private func convertImages(completion: @escaping (Result<[UIImage], Error>) -> Void) {
+        var images: [UIImage] = []
 
-        viewModel.downloadImages { datas in
-            images = datas.map { UIImage(data: $0!)}
-            completion(.success(images))
+        viewModel.downloadImages { imagesData in
+
+           images = imagesData.compactMap { data in
+               guard let data = data else { return nil}
+               return UIImage(data: data)
+           }
+
+            if images.isEmpty {
+                completion(.failure(NetworkError.noData))
+            } else {
+                completion(.success(images))
+            }
         }
     }
 }
