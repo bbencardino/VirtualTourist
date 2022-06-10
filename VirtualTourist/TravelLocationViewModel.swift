@@ -4,13 +4,15 @@ import CoreLocation
 class TravelLocationViewModel {
 
     let userDefaults: UserDefaultsProtocol
+    let database: Database
     let zoomLevel: MKCoordinateSpan
     let center: CLLocationCoordinate2D
     private let rioLat = -23.000372
     private let rioLong = -43.365894
 
-    init(userDefaults: UserDefaultsProtocol) {
+    init(userDefaults: UserDefaultsProtocol, database: Database) {
         self.userDefaults = userDefaults
+        self.database = database
 
         let latitude = userDefaults.readDouble(forKey: "latitude")
         let longitude = userDefaults.readDouble(forKey: "longitude")
@@ -44,13 +46,15 @@ class TravelLocationViewModel {
 
     // MARK: - Map View
     func plotNewPin(coordinate: CLLocationCoordinate2D, mapView: MKMapView) {
-        let pin = createAnnotation(coordinate: coordinate)
-        mapView.addAnnotation(pin)
+        let annotation = createAnnotation(coordinate: coordinate)
+        mapView.addAnnotation(annotation)
     }
 
-    private func createAnnotation(coordinate: CLLocationCoordinate2D) -> MKPointAnnotation {
+    func createAnnotation(coordinate: CLLocationCoordinate2D) -> MKPointAnnotation {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
+        database.createPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
         return annotation
-    }
+   }
 }

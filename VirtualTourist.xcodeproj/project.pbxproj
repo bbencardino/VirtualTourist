@@ -31,6 +31,8 @@
 		5EC88D5E282D401000F667CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC88D5C282D401000F667CA /* LaunchScreen.storyboard */; };
 		5ED91C84282E7EA0006A15DA /* UserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED91C83282E7EA0006A15DA /* UserDefaultsProtocol.swift */; };
 		5ED91C86282E8009006A15DA /* UserDataDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED91C85282E8009006A15DA /* UserDataDefaults.swift */; };
+		5EF6C6E8284FC2FE00B43B57 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6C6E7284FC2FE00B43B57 /* Database.swift */; };
+		5EF6C6ED284FC41F00B43B57 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6C6EC284FC41F00B43B57 /* CoreData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		5EC88D64282D401100F667CA /* VirtualTouristTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ED91C83282E7EA0006A15DA /* UserDefaultsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsProtocol.swift; sourceTree = "<group>"; };
 		5ED91C85282E8009006A15DA /* UserDataDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataDefaults.swift; sourceTree = "<group>"; };
+		5EF6C6E7284FC2FE00B43B57 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		5EF6C6EC284FC41F00B43B57 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,9 +226,8 @@
 		5ED91C82282E7E66006A15DA /* UserData */ = {
 			isa = PBXGroup;
 			children = (
-				5ED91C83282E7EA0006A15DA /* UserDefaultsProtocol.swift */,
-				5ED91C85282E8009006A15DA /* UserDataDefaults.swift */,
-				5EC88D57282D400E00F667CA /* VirtualTourist.xcdatamodeld */,
+				5EF6C6EA284FC3FF00B43B57 /* User Defaults */,
+				5EF6C6E9284FC3E700B43B57 /* Database */,
 			);
 			name = UserData;
 			sourceTree = "<group>";
@@ -234,6 +237,33 @@
 			children = (
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		5EF6C6E9284FC3E700B43B57 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				5EF6C6E7284FC2FE00B43B57 /* Database.swift */,
+				5EF6C6EB284FC40C00B43B57 /* Core Data */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
+		5EF6C6EA284FC3FF00B43B57 /* User Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				5ED91C83282E7EA0006A15DA /* UserDefaultsProtocol.swift */,
+				5ED91C85282E8009006A15DA /* UserDataDefaults.swift */,
+			);
+			name = "User Defaults";
+			sourceTree = "<group>";
+		};
+		5EF6C6EB284FC40C00B43B57 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				5EF6C6EC284FC41F00B43B57 /* CoreData.swift */,
+				5EC88D57282D400E00F667CA /* VirtualTourist.xcdatamodeld */,
+			);
+			name = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,6 +392,7 @@
 				5E10BF12283C00D80084618D /* PhotoAlbumDelegate.swift in Sources */,
 				5E4BD213283C0CC4006FC334 /* PhotoAlbumDataSource.swift in Sources */,
 				5E10BF10283BF0770084618D /* PhotoAlbumCell.swift in Sources */,
+				5EF6C6ED284FC41F00B43B57 /* CoreData.swift in Sources */,
 				5E10BF0D283BDE660084618D /* PhotoAlbumViewModel.swift in Sources */,
 				5ED91C86282E8009006A15DA /* UserDataDefaults.swift in Sources */,
 				5EC88D59282D400E00F667CA /* VirtualTourist.xcdatamodeld in Sources */,
@@ -371,6 +402,7 @@
 				5EC88D53282D400E00F667CA /* TravelLocationViewController.swift in Sources */,
 				5E4BD227283E5C11006FC334 /* PhotosResponse.swift in Sources */,
 				5EC88D4F282D400E00F667CA /* AppDelegate.swift in Sources */,
+				5EF6C6E8284FC2FE00B43B57 /* Database.swift in Sources */,
 				5ED91C84282E7EA0006A15DA /* UserDefaultsProtocol.swift in Sources */,
 				5EC88D51282D400E00F667CA /* SceneDelegate.swift in Sources */,
 				5E4BD221283D3C53006FC334 /* RepositoryProtocol.swift in Sources */,

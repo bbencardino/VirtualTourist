@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Initialize Root View Controller
         let rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController { coder in
             TravelLocationViewController(coder: coder,
-                                         viewModel: TravelLocationViewModel(userDefaults: UserDataDefaults()))
+                                         viewModel: TravelLocationViewModel(userDefaults: UserDataDefaults(), database: CoreData()), database: CoreData())
         }
 
         // Initialize Window

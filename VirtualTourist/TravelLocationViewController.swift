@@ -6,9 +6,11 @@ final class TravelLocationViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
 
     private let viewModel: TravelLocationViewModel
+    private let database: Database
 
-    required init?(coder: NSCoder, viewModel: TravelLocationViewModel) {
+    required init?(coder: NSCoder, viewModel: TravelLocationViewModel, database: Database) {
         self.viewModel = viewModel
+        self.database = database
         super.init(coder: coder)
     }
 
@@ -20,8 +22,9 @@ final class TravelLocationViewController: UIViewController {
         super.viewDidLoad()
         mapView.region.center = viewModel.center
         mapView.region.span = viewModel.zoomLevel
-        setMapView()
         viewModel.saveLocationHasBeenLoaded()
+        database.fetch()
+        setMapView()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -30,20 +33,33 @@ final class TravelLocationViewController: UIViewController {
         let center = mapView.region.center
         let span = mapView.region.span
         viewModel.saveCenterPreferences(latitude: center.latitude,
-                                       longitude: center.longitude)
-        viewModel.saveSpanPreferences(latitudeDelta: span.latitudeDelta, longitudeDelta: span.longitudeDelta)
+                                        longitude: center.longitude)
+        viewModel.saveSpanPreferences(latitudeDelta: span.latitudeDelta,
+                                      longitudeDelta: span.longitudeDelta)
+        database.save()
     }
 
     // MARK: - MapView
 
     private func setMapView() {
         mapView.delegate = self
+
+        if let pins = database.pins {
+            var annotations: [MKAnnotation] = []
+            pins.forEach { pin in
+                let coordinate = CLLocationCoordinate2D(latitude: pin.latitude,
+                                                        longitude: pin.longitude)
+                annotations.append(viewModel.createAnnotation(coordinate: coordinate))
+            }
+            mapView.addAnnotations(annotations)
+        }
+
         let longPress = UILongPressGestureRecognizer(target: self,
                                                      action: #selector(longPressAction(gestureRecognizer:)))
         mapView.addGestureRecognizer(longPress)
     }
 
-     @objc private func longPressAction(gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc private func longPressAction(gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == UILongPressGestureRecognizer.State.ended {
             let touchLocation = gestureRecognizer.location(in: mapView)
 
@@ -51,6 +67,8 @@ final class TravelLocationViewController: UIViewController {
             let coordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
             viewModel.plotNewPin(coordinate: coordinate,
                                  mapView: mapView)
+            database.save()
+            database.fetch()
         }
     }
     // MARK: - Photo Album View Model

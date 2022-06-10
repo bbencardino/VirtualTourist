@@ -8,7 +8,7 @@ class TravelLocationViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         mockedUserDefaults = UserDataMocked(loaded: true)
-        viewModel = TravelLocationViewModel(userDefaults: mockedUserDefaults!)
+        viewModel = TravelLocationViewModel(userDefaults: mockedUserDefaults!, database: CoreData())
     }
 
     override func tearDownWithError() throws {
@@ -17,7 +17,7 @@ class TravelLocationViewModelTests: XCTestCase {
 
     func testLocationHasntBeenLoaded() {
         // GIVEN
-        let viewModel = TravelLocationViewModel(userDefaults: UserDataMocked(loaded: false))
+        let viewModel = TravelLocationViewModel(userDefaults: UserDataMocked(loaded: false), database: CoreData())
         // THEN
         XCTAssertEqual(viewModel.center.longitude, -43.365894)
     }
@@ -29,7 +29,7 @@ class TravelLocationViewModelTests: XCTestCase {
         loadedUserDefaults.write(33.0, forKey: "longitude")
 
         // WHEN
-        let viewModel = TravelLocationViewModel(userDefaults: loadedUserDefaults)
+        let viewModel = TravelLocationViewModel(userDefaults: loadedUserDefaults, database: CoreData())
 
         // THEN
         XCTAssertEqual(viewModel.center.latitude, -42)
