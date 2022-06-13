@@ -67,8 +67,6 @@ final class TravelLocationViewController: UIViewController {
             let coordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
             viewModel.plotNewPin(coordinate: coordinate,
                                  mapView: mapView)
-            database.save()
-            database.fetch()
         }
     }
     // MARK: - Photo Album View Model
@@ -82,6 +80,7 @@ final class TravelLocationViewController: UIViewController {
 
     private func makePhotoAlbumViewModel() -> PhotoAlbumViewModel {
         return PhotoAlbumViewModel(service: FlickrAPI(),
+                                   database: CoreData(),
                                    latitude: viewModel.center.latitude,
                                    longitude: viewModel.center.longitude)
     }

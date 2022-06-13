@@ -28,13 +28,10 @@ class Photos: Codable {
 // MARK: - Photo
 class Photo: Codable {
     let id, secret, server: String
-    let title: String
 
-    init(id: String, secret: String, server: String, title: String) {
+    init(id: String, secret: String, server: String) {
         self.id = id
         self.secret = secret
         self.server = server
-        self.title = title
-
     }
 }

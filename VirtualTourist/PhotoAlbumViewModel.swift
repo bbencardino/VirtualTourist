@@ -3,11 +3,13 @@ import Foundation
 class PhotoAlbumViewModel {
 
     var service: RepositoryProtocol
+    var database: Database
     var latitude: Double
     var longitude: Double
 
-    init(service: RepositoryProtocol, latitude: Double, longitude: Double) {
+    init(service: RepositoryProtocol, database: Database, latitude: Double, longitude: Double) {
         self.service = service
+        self.database = database
         self.latitude = latitude
         self.longitude = longitude
     }

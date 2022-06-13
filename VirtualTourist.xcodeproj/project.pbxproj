@@ -204,7 +204,6 @@
 				5E78D7D9282E60FC003F6911 /* Travel Location */,
 				5E10BF09283BBF160084618D /* Service */,
 				5E78D7DA282E63D3003F6911 /* Photo Album */,
-				5ED91C9028342670006A15DA /* Delegate */,
 				5EC88D54282D400E00F667CA /* Main.storyboard */,
 				5EC88D5A282D401000F667CA /* Assets.xcassets */,
 				5EC88D5C282D401000F667CA /* LaunchScreen.storyboard */,
@@ -230,13 +229,6 @@
 				5EF6C6E9284FC3E700B43B57 /* Database */,
 			);
 			name = UserData;
-			sourceTree = "<group>";
-		};
-		5ED91C9028342670006A15DA /* Delegate */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Delegate;
 			sourceTree = "<group>";
 		};
 		5EF6C6E9284FC3E700B43B57 /* Database */ = {

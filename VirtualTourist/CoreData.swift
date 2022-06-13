@@ -5,6 +5,7 @@ class CoreData: Database {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     var pins: [Pin]?
+    var photos: [Image]?
 
     func fetch() {
         do {
