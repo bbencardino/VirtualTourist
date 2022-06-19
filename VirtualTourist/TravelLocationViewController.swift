@@ -23,7 +23,7 @@ final class TravelLocationViewController: UIViewController {
         mapView.region.center = viewModel.center
         mapView.region.span = viewModel.zoomLevel
         viewModel.saveLocationHasBeenLoaded()
-        database.fetch()
+        database.fetchPins()
         setMapView()
     }
 

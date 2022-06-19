@@ -6,8 +6,8 @@ class PhotoAlbumViewModelTests: XCTestCase {
     var viewModel: PhotoAlbumViewModel!
 
     override func setUpWithError() throws {
-
-        viewModel = PhotoAlbumViewModel(service: MockRepository(), latitude: -23.000372, longitude: -43.365894)
+        // change database
+        viewModel = PhotoAlbumViewModel(service: MockRepository(), database: CoreData(), latitude: -23.000372, longitude: -43.365894)
         viewModel.getPhotosFromFlickr {}
     }
 

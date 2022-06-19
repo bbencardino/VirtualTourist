@@ -1,9 +1,10 @@
-import Foundation
+import UIKit
 
 class PhotoAlbumViewModel {
 
     var service: RepositoryProtocol
     var database: Database
+    private var photos: [Photo] = []
     var latitude: Double
     var longitude: Double
 
@@ -29,26 +30,47 @@ class PhotoAlbumViewModel {
         }
     }
 
-    var photos: [Photo] = []
-
     // MARK: - Data Source
     func numberOfItems() -> Int {
         photos.count
     }
 
-    func getImageNames() -> [String] {
-        var imageNames: [String] = []
-        photos.forEach { photo in
-            imageNames.append("https://live.staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg")
+    func image(at index: Int, completion: @escaping (UIImage?) -> ()) {
+
+        let path = getImageName(from: photos[index])
+
+        if database.images![index].url == path {
+            database.fetchImages()
+        } else {
+            downloadImage(path: path) { result in
+                switch result {
+                case .success(let data):
+                    completion(UIImage(data: data))
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
         }
-        return imageNames
     }
 
-    func downloadImages(completion: @escaping ([Data?]) -> Void) {
+    private func getImageName(from photo: Photo) -> String {
+
+         "https://live.staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg"
+    }
+
+    func downloadImage(path: String, completion: @escaping (Result<Data,Error>) -> Void) {
         DispatchQueue.global().async {
-            let urls = self.getImageNames().map { URL(string: $0)! }
-            let data = urls.map { self.service.downloadContent(from: $0)}
-            completion(data)
+
+            guard let url = URL(string: path),
+                  let data = self.service.downloadContent(from: url) else {
+                completion(.failure(NSError(domain: "🤯", code: 24)))
+                return
+            }
+            self.database.createImage(blob: data, url: path)
+            self.database.save()
+            self.database.fetchImages()
+
+            completion(.success(data))
         }
     }
 }

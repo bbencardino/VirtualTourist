@@ -2,9 +2,11 @@ import Foundation
 
 protocol Database {
 
-    func fetch()
+    func fetchPins()
+    func fetchImages()
     func createPin(latitude: Double, longitude: Double)
+    func createImage(blob: Data, url: String)
     func save()
     var pins: [Pin]? { get set }
-    var photos: [Image]? { get set }
+    var images: [Image]? { get set }
 }

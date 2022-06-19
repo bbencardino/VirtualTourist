@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Image" representedClassName="Image" syncable="YES" codeGenerationType="class">
-        <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="blob" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Pin" representedClassName="Pin" syncable="YES" codeGenerationType="class">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -9,7 +10,7 @@
         <relationship name="photoAlbum" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image"/>
     </entity>
     <elements>
+        <element name="Image" positionX="40.5859375" positionY="35.38671875" width="128" height="73"/>
         <element name="Pin" positionX="-298.3046875" positionY="11.734375" width="128" height="88"/>
-        <element name="Image" positionX="40.5859375" positionY="35.38671875" width="128" height="58"/>
     </elements>
 </model>
