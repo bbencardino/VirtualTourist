@@ -8,14 +8,17 @@ class PhotoAlbumViewController: UIViewController {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
 
     var viewModel: PhotoAlbumViewModel!
+
     lazy var photoAlbumDataSource = PhotoAlbumDataSource(viewModel: viewModel)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.dataSource = photoAlbumDataSource
+        configurePhotoAlbumLayout()
+
         viewModel.getPhotosFromFlickr { [weak self] in
             DispatchQueue.main.async {
-                self?.collectionView.dataSource = self?.photoAlbumDataSource
-                self?.configurePhotoAlbumLayout()
+                self?.collectionView.reloadData()
             }
         }
     }

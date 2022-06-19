@@ -1,13 +1,16 @@
-import Foundation
+import UIKit
 
-class PhotoAlbumViewModel {
+final class PhotoAlbumViewModel {
 
-    var service: RepositoryProtocol
+    private var service: RepositoryProtocol
+    private var database: Database
+    private var photos: [Photo] = []
     var latitude: Double
     var longitude: Double
 
-    init(service: RepositoryProtocol, latitude: Double, longitude: Double) {
+    init(service: RepositoryProtocol, database: Database, latitude: Double, longitude: Double) {
         self.service = service
+        self.database = database
         self.latitude = latitude
         self.longitude = longitude
     }
@@ -27,26 +30,44 @@ class PhotoAlbumViewModel {
         }
     }
 
-    var photos: [Photo] = []
-
     // MARK: - Data Source
     func numberOfItems() -> Int {
         photos.count
     }
 
-    func getImageNames() -> [String] {
-        var imageNames: [String] = []
-        photos.forEach { photo in
-            imageNames.append("https://live.staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg")
+    func image(at index: Int, completion: @escaping (UIImage?) -> Void) {
+
+        let path = getImageName(from: photos[index])
+
+        if let blob = database.getImage(at: path) {
+            completion(UIImage(data: blob))
+        } else {
+            downloadImage(path: path) { result in
+                switch result {
+                case .success(let data):
+                    completion(UIImage(data: data))
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
         }
-        return imageNames
     }
 
-    func downloadImages(completion: @escaping ([Data?]) -> Void) {
+    private func getImageName(from photo: Photo) -> String {
+
+         "https://live.staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg"
+    }
+
+    func downloadImage(path: String, completion: @escaping (Result<Data, Error>) -> Void) {
         DispatchQueue.global().async {
-            let urls = self.getImageNames().map { URL(string: $0)! }
-            let data = urls.map { self.service.downloadContent(from: $0)}
-            completion(data)
+
+            guard let url = URL(string: path),
+                  let data = self.service.downloadContent(from: url) else {
+                completion(.failure(NSError(domain: "🤯", code: 24)))
+                return
+            }
+            self.database.createImage(blob: data, url: path)
+            completion(.success(data))
         }
     }
 }

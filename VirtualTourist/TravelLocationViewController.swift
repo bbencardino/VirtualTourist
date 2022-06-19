@@ -9,6 +9,7 @@ final class TravelLocationViewController: UIViewController {
 
     required init?(coder: NSCoder, viewModel: TravelLocationViewModel) {
         self.viewModel = viewModel
+
         super.init(coder: coder)
     }
 
@@ -20,30 +21,38 @@ final class TravelLocationViewController: UIViewController {
         super.viewDidLoad()
         mapView.region.center = viewModel.center
         mapView.region.span = viewModel.zoomLevel
-        setMapView()
         viewModel.saveLocationHasBeenLoaded()
+        viewModel.fetchPins()
+        setMapView()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        let center = mapView.region.center
-        let span = mapView.region.span
-        viewModel.saveCenterPreferences(latitude: center.latitude,
-                                       longitude: center.longitude)
-        viewModel.saveSpanPreferences(latitudeDelta: span.latitudeDelta, longitudeDelta: span.longitudeDelta)
+        viewModel.saveLastPosition(region: mapView.region)
     }
 
     // MARK: - MapView
 
     private func setMapView() {
         mapView.delegate = self
+
+        if let pins = viewModel.pins {
+            var annotations: [MKAnnotation] = []
+            pins.forEach { pin in
+                let coordinate = CLLocationCoordinate2D(latitude: pin.latitude,
+                                                        longitude: pin.longitude)
+                annotations.append(viewModel.createAnnotation(coordinate: coordinate))
+            }
+            mapView.addAnnotations(annotations)
+        }
+
         let longPress = UILongPressGestureRecognizer(target: self,
                                                      action: #selector(longPressAction(gestureRecognizer:)))
         mapView.addGestureRecognizer(longPress)
     }
 
-     @objc private func longPressAction(gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc private func longPressAction(gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == UILongPressGestureRecognizer.State.ended {
             let touchLocation = gestureRecognizer.location(in: mapView)
 
@@ -58,14 +67,8 @@ final class TravelLocationViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPhotoAlbum" {
             guard let destination = segue.destination as? PhotoAlbumViewController else { return }
-            destination.viewModel = makePhotoAlbumViewModel()
+            destination.viewModel = viewModel.makePhotoAlbumViewModel()
         }
-    }
-
-    private func makePhotoAlbumViewModel() -> PhotoAlbumViewModel {
-        return PhotoAlbumViewModel(service: FlickrAPI(),
-                                   latitude: viewModel.center.latitude,
-                                   longitude: viewModel.center.longitude)
     }
 }
 // MARK: - Map View Delegate

@@ -2,8 +2,6 @@ import Foundation
 
 final class FlickrAPI: RepositoryProtocol {
 
-
-
     // swiftlint: disable todo
     // TODO: better name
     struct Auth {
