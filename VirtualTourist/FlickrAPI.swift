@@ -2,8 +2,6 @@ import Foundation
 
 final class FlickrAPI: RepositoryProtocol {
 
-
-
     // swiftlint: disable todo
     // TODO: better name
     struct Auth {
@@ -19,7 +17,6 @@ final class FlickrAPI: RepositoryProtocol {
                    completion: @escaping (Result<Photos, NetworkError>) -> Void) {
         // swiftlint: disable line_length
         let photosString = Endpoint.baseString + "rest/?method=flickr.photos.search" + "&api_key=\(Auth.key)" + "&lat=\(latitude)" + "&lon=\(longitude)" + "&format=json&nojsoncallback=1"
-//        let photosString = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=52a0ae9dd211d0c26dc01eb7d5b5abec&lat=-23.000372&lon=-43.365894&format=json&nojsoncallback=1"
 
         guard let url = URL(string: photosString) else { fatalError("🤯: Wrong URL") }
 

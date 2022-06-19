@@ -6,11 +6,10 @@ final class TravelLocationViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
 
     private let viewModel: TravelLocationViewModel
-    private let database: Database
 
-    required init?(coder: NSCoder, viewModel: TravelLocationViewModel, database: Database) {
+    required init?(coder: NSCoder, viewModel: TravelLocationViewModel) {
         self.viewModel = viewModel
-        self.database = database
+
         super.init(coder: coder)
     }
 
@@ -23,20 +22,14 @@ final class TravelLocationViewController: UIViewController {
         mapView.region.center = viewModel.center
         mapView.region.span = viewModel.zoomLevel
         viewModel.saveLocationHasBeenLoaded()
-        database.fetchPins()
+        viewModel.fetchPins()
         setMapView()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        let center = mapView.region.center
-        let span = mapView.region.span
-        viewModel.saveCenterPreferences(latitude: center.latitude,
-                                        longitude: center.longitude)
-        viewModel.saveSpanPreferences(latitudeDelta: span.latitudeDelta,
-                                      longitudeDelta: span.longitudeDelta)
-        database.save()
+        viewModel.saveLastPosition(region: mapView.region)
     }
 
     // MARK: - MapView
@@ -44,7 +37,7 @@ final class TravelLocationViewController: UIViewController {
     private func setMapView() {
         mapView.delegate = self
 
-        if let pins = database.pins {
+        if let pins = viewModel.pins {
             var annotations: [MKAnnotation] = []
             pins.forEach { pin in
                 let coordinate = CLLocationCoordinate2D(latitude: pin.latitude,
@@ -74,15 +67,8 @@ final class TravelLocationViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPhotoAlbum" {
             guard let destination = segue.destination as? PhotoAlbumViewController else { return }
-            destination.viewModel = makePhotoAlbumViewModel()
+            destination.viewModel = viewModel.makePhotoAlbumViewModel()
         }
-    }
-
-    private func makePhotoAlbumViewModel() -> PhotoAlbumViewModel {
-        return PhotoAlbumViewModel(service: FlickrAPI(),
-                                   database: CoreData(),
-                                   latitude: viewModel.center.latitude,
-                                   longitude: viewModel.center.longitude)
     }
 }
 // MARK: - Map View Delegate

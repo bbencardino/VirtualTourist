@@ -9,6 +9,7 @@ class PhotoAlbumDataSourceTests: XCTestCase {
 
     override func setUpWithError() throws {
         viewModel = PhotoAlbumViewModel(service: MockRepository(),
+                                        database: CoreData(), // TODO: Implement mock
                                         latitude: -23.000372,
                                         longitude: -43.365894)
         dataSource = PhotoAlbumDataSource(viewModel: viewModel)

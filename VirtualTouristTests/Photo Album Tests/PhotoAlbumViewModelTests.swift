@@ -7,7 +7,10 @@ class PhotoAlbumViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         // change database
-        viewModel = PhotoAlbumViewModel(service: MockRepository(), database: CoreData(), latitude: -23.000372, longitude: -43.365894)
+        viewModel = PhotoAlbumViewModel(service: MockRepository(),
+                                        database: CoreData(),
+                                        latitude: -23.000372,
+                                        longitude: -43.365894)
         viewModel.getPhotosFromFlickr {}
     }
 
@@ -21,19 +24,18 @@ class PhotoAlbumViewModelTests: XCTestCase {
         XCTAssertEqual(numberOfItems, 4)
     }
 
-    func testImageNames() {
+    func testDownloadImages_success() {
+        let path = "https://live.staticflickr.com/1232/1234_1234.jpg"
         // WHEN
-        let images = viewModel.getImageNames()
-        // THEN
-        XCTAssertEqual(images[0], "https://live.staticflickr.com/1232/1234_1234.jpg")
-    }
-
-    func testDownloadImages() {
-        // WHEN
-        viewModel.downloadImages { data in
+        viewModel.downloadImage(path: path) { result in
             // THEN
-            let imageName = String(data: data[0]!, encoding: .utf8)
-            XCTAssertEqual(imageName, "https://live.staticflickr.com/1232/1234_1234.jpg")
+            switch result {
+            case .success(let data):
+                let imageName = String(data: data, encoding: .utf8)
+                XCTAssertEqual(imageName, "https://live.staticflickr.com/1232/1234_1234.jpg")
+            default:
+                XCTFail("should be success")
+            }
         }
     }
 }

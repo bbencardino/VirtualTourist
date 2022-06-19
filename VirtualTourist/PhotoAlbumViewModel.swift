@@ -1,9 +1,9 @@
 import UIKit
 
-class PhotoAlbumViewModel {
+final class PhotoAlbumViewModel {
 
-    var service: RepositoryProtocol
-    var database: Database
+    private var service: RepositoryProtocol
+    private var database: Database
     private var photos: [Photo] = []
     var latitude: Double
     var longitude: Double
@@ -35,12 +35,12 @@ class PhotoAlbumViewModel {
         photos.count
     }
 
-    func image(at index: Int, completion: @escaping (UIImage?) -> ()) {
+    func image(at index: Int, completion: @escaping (UIImage?) -> Void) {
 
         let path = getImageName(from: photos[index])
 
-        if database.images![index].url == path {
-            database.fetchImages()
+        if let blob = database.getImage(at: path) {
+            completion(UIImage(data: blob))
         } else {
             downloadImage(path: path) { result in
                 switch result {
@@ -58,7 +58,7 @@ class PhotoAlbumViewModel {
          "https://live.staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg"
     }
 
-    func downloadImage(path: String, completion: @escaping (Result<Data,Error>) -> Void) {
+    func downloadImage(path: String, completion: @escaping (Result<Data, Error>) -> Void) {
         DispatchQueue.global().async {
 
             guard let url = URL(string: path),
@@ -67,9 +67,6 @@ class PhotoAlbumViewModel {
                 return
             }
             self.database.createImage(blob: data, url: path)
-            self.database.save()
-            self.database.fetchImages()
-
             completion(.success(data))
         }
     }

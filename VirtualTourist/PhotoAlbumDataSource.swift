@@ -23,9 +23,11 @@ class PhotoAlbumDataSource: NSObject, UICollectionViewDataSource {
         }
 
         cell.imageView.image = placeholder
-        
+
         viewModel.image(at: indexPath.row) { image in
-            cell.imageView.image = image
+            DispatchQueue.main.async {
+                cell.imageView.image = image
+            }
         }
 
         return cell

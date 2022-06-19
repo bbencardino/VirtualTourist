@@ -1,5 +1,6 @@
 import XCTest
 @testable import VirtualTourist
+import MapKit
 
 class TravelLocationViewModelTests: XCTestCase {
 
@@ -36,19 +37,18 @@ class TravelLocationViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.center.longitude, 33)
     }
 
-    func testCenterPreferencesHasBeenSaved() {
+    func testSaveLastPosition() {
+        // GIVEN
+        let zoomLevel = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: -0.5)
+        let center = CLLocationCoordinate2D(latitude: 57.0, longitude: 77.0)
+        let region = MKCoordinateRegion(center: center, span: zoomLevel)
+
         // WHEN
-        viewModel.saveCenterPreferences(latitude: 57.0, longitude: 77.0)
+        viewModel.saveLastPosition(region: region)
 
         // THEN
         XCTAssertEqual(mockedUserDefaults.readDouble(forKey: "latitude"), 57)
         XCTAssertEqual(mockedUserDefaults.readDouble(forKey: "longitude"), 77)
-    }
-
-    func testSaveSpanPreferencesHasBeenSaved() {
-        // WHEN
-        viewModel.saveSpanPreferences(latitudeDelta: 0.5, longitudeDelta: -0.5)
-        // THEN
         XCTAssertEqual(mockedUserDefaults.readDouble(forKey: "latitudeDelta"), 0.5)
         XCTAssertEqual(mockedUserDefaults.readDouble(forKey: "longitudeDelta"), -0.5)
     }
