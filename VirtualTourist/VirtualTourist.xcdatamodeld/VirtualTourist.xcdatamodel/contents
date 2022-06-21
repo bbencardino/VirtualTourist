@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Album" representedClassName="Album" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Image" inverseName="album" inverseEntity="Image"/>
+        <relationship name="pin" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Pin" inverseName="album" inverseEntity="Pin"/>
+    </entity>
     <entity name="Image" representedClassName="Image" syncable="YES" codeGenerationType="class">
         <attribute name="blob" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="images" inverseEntity="Album"/>
     </entity>
     <entity name="Pin" representedClassName="Pin" syncable="YES" codeGenerationType="class">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="photoAlbum" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image"/>
+        <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="pin" inverseEntity="Album"/>
     </entity>
     <elements>
-        <element name="Image" positionX="40.5859375" positionY="35.38671875" width="128" height="73"/>
-        <element name="Pin" positionX="-298.3046875" positionY="11.734375" width="128" height="88"/>
+        <element name="Image" positionX="36.7421875" positionY="33.92578125" width="128" height="88"/>
+        <element name="Pin" positionX="-588.38671875" positionY="131.26171875" width="128" height="88"/>
+        <element name="Album" positionX="-282.125" positionY="-0.609375" width="128" height="88"/>
     </elements>
 </model>
