@@ -7,6 +7,7 @@ final class CoreData: Database {
 
     var pins: [Pin]?
     var images: [Image]?
+    var photoAlbum: Album?
 
     func fetchPins() {
         do {
@@ -16,12 +17,12 @@ final class CoreData: Database {
         }
     }
 
-    func createPin(latitude: Double, longitude: Double) {
+    func createPin(latitude: Double, longitude: Double) -> Pin {
         let newPin = Pin(context: context)
         newPin.latitude = latitude
         newPin.longitude = longitude
-
         save()
+        return newPin
     }
 
     func getImage(at path: String) -> Data? {
@@ -39,7 +40,15 @@ final class CoreData: Database {
             let newImage = Image(context: context)
             newImage.blob = blob
             newImage.url = url
+            save()
+        }
+    }
 
+    func createPhotoAlbum(status: PhotoAlbumStatus, pin: Pin) {
+        context.performAndWait {
+            let newAlbum = Album(context: context)
+            newAlbum.status = status.rawValue
+            newAlbum.pin = pin
             save()
         }
     }

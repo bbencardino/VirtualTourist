@@ -64,8 +64,9 @@ class TravelLocationViewModel {
     func createAnnotation(coordinate: CLLocationCoordinate2D) -> MKPointAnnotation {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        database.createPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
-
+        let pin = database.createPin(latitude: coordinate.latitude,
+                                     longitude: coordinate.longitude)
+        createPhotoAlbum(for: pin)
         return annotation
    }
 
@@ -73,6 +74,10 @@ class TravelLocationViewModel {
 
     func fetchPins() {
         database.fetchPins()
+    }
+
+    func createPhotoAlbum(for pin: Pin) {
+        database.createPhotoAlbum(status: PhotoAlbumStatus.notStarted, pin: pin)
     }
 
     // MARK: - Navigation
