@@ -1,12 +1,11 @@
 import Foundation
 
 protocol Database {
-    func fetchPins()
+
     func getImage(at path: String) -> Data?
-    func createPin(latitude: Double, longitude: Double) -> Pin
-    func createImage(blob: Data, url: String)
-    func createPhotoAlbum(status: PhotoAlbumStatus, pin: Pin)
-    var pins: [Pin]? { get set }
+    func createPin(latitude: Double, longitude: Double)
+    func createImage(for album: Album, blob: Data, url: String, id: String)
+    func changeStatus(of album: Album, to status: PhotoAlbumStatus)
+    var pins: [Pin]? { get }
     var images: [Image]? { get set }
-    var photoAlbum: Album? { get set }
 }

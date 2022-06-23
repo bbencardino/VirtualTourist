@@ -5,7 +5,9 @@ class TravelLocationViewModel {
 
     let userDefaults: UserDefaultsProtocol
     private let database: Database
-    var pins: [Pin]? { database.pins }
+    var pins: [(latitude: Double, longitude: Double)]? {
+        database.pins?.compactMap { (latitude: $0.latitude, longitude: $0.longitude) }
+    }
 
     let zoomLevel: MKCoordinateSpan
     let center: CLLocationCoordinate2D
@@ -64,25 +66,25 @@ class TravelLocationViewModel {
     func createAnnotation(coordinate: CLLocationCoordinate2D) -> MKPointAnnotation {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        let pin = database.createPin(latitude: coordinate.latitude,
+        database.createPin(latitude: coordinate.latitude,
                                      longitude: coordinate.longitude)
-        createPhotoAlbum(for: pin)
         return annotation
    }
 
     // MARK: - Database
 
-    func fetchPins() {
-        database.fetchPins()
-    }
-
-    func createPhotoAlbum(for pin: Pin) {
-        database.createPhotoAlbum(status: PhotoAlbumStatus.notStarted, pin: pin)
+    private func findPin(at coordinate: CLLocationCoordinate2D) -> Pin? {
+        database.pins?.first(where: { pin in
+            pin.latitude == coordinate.latitude && pin.longitude == coordinate.longitude
+        })
     }
 
     // MARK: - Navigation
-    func makePhotoAlbumViewModel() -> PhotoAlbumViewModel {
-        PhotoAlbumViewModel(service: FlickrAPI(),
+    func makePhotoAlbumViewModel(coordinate: CLLocationCoordinate2D) -> PhotoAlbumViewModel {
+        guard let pin = findPin(at: coordinate), let album = pin.album else { fatalError("can't find pin") }
+        return PhotoAlbumViewModel(
+            photoAlbum: album,
+            service: FlickrAPI(),
                                    database: database,
                                    latitude: center.latitude,
                                    longitude: center.longitude)

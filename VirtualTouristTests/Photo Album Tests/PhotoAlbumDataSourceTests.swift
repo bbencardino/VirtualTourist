@@ -8,7 +8,8 @@ class PhotoAlbumDataSourceTests: XCTestCase {
     var collectionView: UICollectionView!
 
     override func setUpWithError() throws {
-        viewModel = PhotoAlbumViewModel(service: MockRepository(),
+        viewModel = PhotoAlbumViewModel(photoAlbum: Album(),
+                                        service: MockRepository(),
                                         database: CoreData(), // TODO: Implement mock
                                         latitude: -23.000372,
                                         longitude: -43.365894)
