@@ -88,7 +88,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XbO-s5-E0j">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XbO-s5-E0j">
                                 <rect key="frame" x="126.66666666666666" y="739" width="121.66666666666666" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="New Collection"/>
@@ -117,6 +117,7 @@
                         <outlet property="collectionView" destination="azT-0S-2kg" id="3Jq-vo-chM"/>
                         <outlet property="flowLayout" destination="aiI-2C-9Ax" id="mig-Fz-eo0"/>
                         <outlet property="mapView" destination="vTF-UW-1aF" id="Ys2-wF-m7d"/>
+                        <outlet property="newCollectButton" destination="XbO-s5-E0j" id="CeQ-zd-Hfk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qHq-a6-4Lr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

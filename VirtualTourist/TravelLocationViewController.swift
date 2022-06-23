@@ -22,7 +22,6 @@ final class TravelLocationViewController: UIViewController {
         mapView.region.center = viewModel.center
         mapView.region.span = viewModel.zoomLevel
         viewModel.saveLocationHasBeenLoaded()
-        viewModel.fetchPins()
         setMapView()
     }
 
@@ -66,8 +65,12 @@ final class TravelLocationViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPhotoAlbum" {
-            guard let destination = segue.destination as? PhotoAlbumViewController else { return }
-            destination.viewModel = viewModel.makePhotoAlbumViewModel()
+            guard
+                let destination = segue.destination as? PhotoAlbumViewController,
+                let annotationView = sender as? MKAnnotationView,
+                let annotation = annotationView.annotation
+            else { return }
+            destination.viewModel = viewModel.makePhotoAlbumViewModel(coordinate: annotation.coordinate)
         }
     }
 }
@@ -75,6 +78,6 @@ final class TravelLocationViewController: UIViewController {
 extension TravelLocationViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        performSegue(withIdentifier: "toPhotoAlbum", sender: nil)
+        performSegue(withIdentifier: "toPhotoAlbum", sender: view)
     }
 }

@@ -22,13 +22,7 @@ class PhotoAlbumDataSource: NSObject, UICollectionViewDataSource {
             fatalError("error: collection view cell is not a type of PhotoAlbumCell")
         }
 
-        cell.imageView.image = placeholder
-
-        viewModel.image(at: indexPath.row) { image in
-            DispatchQueue.main.async {
-                cell.imageView.image = image
-            }
-        }
+        cell.imageView.image = viewModel.image(at: indexPath.row) ?? placeholder
 
         return cell
     }

@@ -6,7 +6,8 @@ class PhotoAlbumViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
-
+    @IBOutlet weak var newCollectButton: UIButton!
+    
     var viewModel: PhotoAlbumViewModel!
 
     lazy var photoAlbumDataSource = PhotoAlbumDataSource(viewModel: viewModel)
@@ -15,11 +16,18 @@ class PhotoAlbumViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = photoAlbumDataSource
         configurePhotoAlbumLayout()
-
+        viewModel.reloadView = reloadData
         viewModel.getPhotosFromFlickr { [weak self] in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+
+            self?.reloadData()
+            self?.viewModel.downloadImages { _ in }
+        }
+    }
+
+    private func reloadData() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.newCollectButton.isEnabled = self.viewModel.isNewCollectionEnabled
         }
     }
 
