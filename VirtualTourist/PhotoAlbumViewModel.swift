@@ -13,9 +13,8 @@ final class PhotoAlbumViewModel {
     var reloadView: (() -> Void)?
 
     private var cachedImages: [Image] {
-         if let imagesFromPhotoAlbum = album.images {
-            let img = imagesFromPhotoAlbum.allObjects as! [Image]
-            return img.sorted { $0.id > $1.id }
+        if let imagesFromPhotoAlbum = album.images {
+             return imagesFromPhotoAlbum.allObjects as! [Image]
         }
         return []
     }
@@ -37,7 +36,7 @@ final class PhotoAlbumViewModel {
 
     // MARK: - Networking
 
-    func getPhotosFromFlickr(completion: @escaping () -> Void) {
+    func getPhotosFromFlickr(_ completion: @escaping () -> Void) {
         service.getImages(latitude: latitude, longitude: longitude) { result in
             switch result {
             case .success(let photos):
@@ -53,18 +52,27 @@ final class PhotoAlbumViewModel {
     // MARK: - Data Source
     func numberOfItems() -> Int {
         // TODO: next story implement label
-         photosFromAPI.count
+        return photosFromAPI.isEmpty ? cachedImages.count : photosFromAPI.count
     }
 
     func image(at index: Int) -> UIImage? {
-        let id = photosFromAPI[index].id
 
-        guard
-            let cacheImage = cachedImages.first { $0.id == id },
-            let path = cacheImage.url,
-            let blob = cacheImage.blob
-        else { return nil }
-        return UIImage(data: blob)
+        if album.status == PhotoAlbumStatus.done.rawValue {
+            let sortedImages = cachedImages.sorted { $0.id > $1.id }
+
+            guard
+                let blob = sortedImages[index].blob else { return nil }
+            return UIImage(data: blob)
+
+        } else {
+
+            let id = Int(photosFromAPI[index].id)!
+            guard
+                let cacheImage = cachedImages.first(where: { $0.id == id }),
+                let blob = cacheImage.blob
+            else { return nil }
+            return UIImage(data: blob)
+        }
     }
 
     private func getImageName(from photo: Photo) -> String {
@@ -72,7 +80,7 @@ final class PhotoAlbumViewModel {
     }
 
     // download all photos in one go.
-    func downloadImages(completion: @escaping (Result<Void, Error>) -> Void) {
+    func downloadImages(_ completion: @escaping (Result<Void, Error>) -> Void) {
         changeAlbumStatus(to: .downloading)
         photosFromAPI.forEach { photo in
             let imageName = getImageName(from: photo)
@@ -81,7 +89,7 @@ final class PhotoAlbumViewModel {
                 completion(.failure(NSError(domain: "🤯", code: 24)))
                 return
             }
-            self.database.createImage(for: self.album, blob: data, url: imageName, id: photo.id)
+            self.database.createImage(for: self.album, blob: data, url: imageName, id: Int(photo.id)!)
             self.reloadView?()
         }
         changeAlbumStatus(to: .done)
@@ -94,5 +102,9 @@ final class PhotoAlbumViewModel {
         database.changeStatus(of: album, to: status)
         // 2. should notify view controller
         reloadView?()
+    }
+
+    func showPhotos(_ completion: @escaping () -> Void) {
+        album.status == PhotoAlbumStatus.done.rawValue ? reloadView?() : getPhotosFromFlickr(completion)
     }
 }

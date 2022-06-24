@@ -17,10 +17,11 @@ class PhotoAlbumViewController: UIViewController {
         collectionView.dataSource = photoAlbumDataSource
         configurePhotoAlbumLayout()
         viewModel.reloadView = reloadData
-        viewModel.getPhotosFromFlickr { [weak self] in
 
-            self?.reloadData()
-            self?.viewModel.downloadImages { _ in }
+
+        viewModel.showPhotos { [weak self] in
+                self?.reloadData()
+                self?.viewModel.downloadImages { _ in }
         }
     }
 
