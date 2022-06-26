@@ -123,4 +123,19 @@ final class PhotoAlbumViewModel {
     func showPhotos(_ completion: @escaping () -> Void) {
         albumStatus == .done ? reloadView?() : getPhotosFromFlickr(completion)
     }
+
+    func createNewCollection() {
+        // 1.empty album
+        guard let imagesToDelete = album.images else { return }
+        album.removeFromImages(imagesToDelete)
+        changeAlbumStatus(to: .notStarted)
+        photosFromAPI.removeAll()
+
+        // 2.new photos are downloaded
+
+        // 3.disable button
+
+        // 4.change album status
+
+    }
 }

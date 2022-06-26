@@ -31,7 +31,9 @@ class PhotoAlbumViewController: UIViewController {
         }
     }
 
-    @IBAction func createNewCollection(_ sender: UIButton) {}
+    @IBAction func createNewCollection(_ sender: UIButton) {
+        viewModel.createNewCollection()
+    }
 
     // MARK: - Private Methods
     private func configurePhotoAlbumLayout() {

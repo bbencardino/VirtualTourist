@@ -42,6 +42,7 @@ final class CoreData: Database {
         save()
     }
 
+    // MARK: - Helper functions
     private func createPhotoAlbum(status: PhotoAlbumStatus, pin: Pin) {
         context.performAndWait {
             let newAlbum = Album(context: context)
