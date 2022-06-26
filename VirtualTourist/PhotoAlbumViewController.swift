@@ -18,11 +18,7 @@ class PhotoAlbumViewController: UIViewController {
         configurePhotoAlbumLayout()
         viewModel.reloadView = reloadData
 
-
-        viewModel.showPhotos { [weak self] in
-                self?.reloadData()
-                self?.viewModel.downloadImages { _ in }
-        }
+        viewModel.fetchPhotos()
     }
 
     private func reloadData() {
@@ -32,7 +28,9 @@ class PhotoAlbumViewController: UIViewController {
         }
     }
 
-    @IBAction func createNewCollection(_ sender: UIButton) {}
+    @IBAction func createNewCollection(_ sender: UIButton) {
+        viewModel.createNewCollection()
+    }
 
     // MARK: - Private Methods
     private func configurePhotoAlbumLayout() {

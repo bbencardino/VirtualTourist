@@ -14,12 +14,18 @@ final class FlickrAPI: RepositoryProtocol {
 
     func getImages(latitude: Double,
                    longitude: Double,
+                   pageNumber: Int,
                    completion: @escaping (Result<Photos, NetworkError>) -> Void) {
-        // swiftlint: disable line_length
-        let photosString = Endpoint.baseString + "rest/?method=flickr.photos.search" + "&api_key=\(Auth.key)" + "&lat=\(latitude)" + "&lon=\(longitude)" + "&format=json&nojsoncallback=1"
+        let photosString = Endpoint.baseString +
+        "rest/?method=flickr.photos.search" +
+        "&api_key=\(Auth.key)" +
+        "&lat=\(latitude)" +
+        "&lon=\(longitude)" +
+        "&page=\(pageNumber)" +
+        "&per_page=10" +
+        "&format=json&nojsoncallback=1"
 
         guard let url = URL(string: photosString) else { fatalError("🤯: Wrong URL") }
-
         let dataTask = URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else {
                 completion(.failure(.badURL))
@@ -29,7 +35,7 @@ final class FlickrAPI: RepositoryProtocol {
             let decoder = JSONDecoder()
             do {
                 let photoAlbum = try decoder.decode(PhotoAlbum.self, from: data)
-                    completion(.success(photoAlbum.photos))
+                completion(.success(photoAlbum.photos))
 
             } catch {
                 completion(.failure(.serviceError))

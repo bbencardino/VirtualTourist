@@ -6,6 +6,12 @@ final class PhotoAlbumViewModel {
     private let database: Database
     private var photosFromAPI: [Photo] = []
 
+    private var maxPages: Int?
+    private var pageNumber: Int {
+        let maxPages = maxPages ?? 1
+        return Int.random(in: 1...maxPages)
+    }
+
     private let album: Album
     private var albumStatus: PhotoAlbumStatus {
         PhotoAlbumStatus(rawValue: album.status ?? "") ?? .notStarted
@@ -42,9 +48,11 @@ final class PhotoAlbumViewModel {
     // MARK: - Networking
 
     func getPhotosFromFlickr(_ completion: @escaping () -> Void) {
-        service.getImages(latitude: latitude, longitude: longitude) { result in
+
+        service.getImages(latitude: latitude, longitude: longitude, pageNumber: pageNumber) { result in
             switch result {
             case .success(let photos):
+                self.maxPages = photos.pages
                 self.photosFromAPI = photos.photo
                 completion()
             case .failure(let error):
@@ -57,7 +65,7 @@ final class PhotoAlbumViewModel {
     // MARK: - Data Source
     func numberOfItems() -> Int {
         // TODO: next story implement label
-        return albumStatus == .done ? cachedImages.count : photosFromAPI.count
+        albumStatus == .done ? cachedImages.count : photosFromAPI.count
     }
 
     func image(at index: Int) -> UIImage? {
@@ -120,7 +128,27 @@ final class PhotoAlbumViewModel {
         reloadView?()
     }
 
-    func showPhotos(_ completion: @escaping () -> Void) {
-        albumStatus == .done ? reloadView?() : getPhotosFromFlickr(completion)
+    func fetchPhotos() {
+        if albumStatus == .done {
+            reloadView?()
+        } else {
+            getPhotosFromFlickr {
+                self.reloadView?()
+                self.downloadImages { _ in }
+            }
+        }
+    }
+
+    func createNewCollection() {
+        // 1.empty album
+        database.deleteImages(from: album)
+        changeAlbumStatus(to: .notStarted)
+        photosFromAPI.removeAll()
+
+        // 2.disable button
+        reloadView?()
+
+        // 3.new photos are downloaded
+        fetchPhotos()
     }
 }

@@ -81,12 +81,13 @@ class TravelLocationViewModel {
 
     // MARK: - Navigation
     func makePhotoAlbumViewModel(coordinate: CLLocationCoordinate2D) -> PhotoAlbumViewModel {
-        guard let pin = findPin(at: coordinate), let album = pin.album else { fatalError("can't find pin") }
+        guard let pin = findPin(at: coordinate),
+              let album = pin.album else { fatalError("can't find pin") }
         return PhotoAlbumViewModel(
             photoAlbum: album,
             service: FlickrAPI(),
                                    database: database,
-                                   latitude: center.latitude,
-                                   longitude: center.longitude)
+                                   latitude: coordinate.latitude,
+                                   longitude: coordinate.longitude)
     }
 }
