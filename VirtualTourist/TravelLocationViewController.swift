@@ -76,6 +76,7 @@ final class TravelLocationViewController: UIViewController {
 extension TravelLocationViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: true)
         performSegue(withIdentifier: "toPhotoAlbum", sender: view)
     }
 }
