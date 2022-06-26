@@ -7,7 +7,6 @@ final class CoreData: Database {
 
     var pins: [Pin]? { try? context.fetch(Pin.fetchRequest()) }
     var images: [Image]?
-    
 
     func createPin(latitude: Double, longitude: Double) {
         let newPin = Pin(context: context)

@@ -42,7 +42,7 @@ final class PhotoAlbumViewModel {
     // MARK: - Networking
 
     func getPhotosFromFlickr(_ completion: @escaping () -> Void) {
-        service.getImages(latitude: latitude, longitude: longitude) { result in
+        service.getImages(latitude: latitude, longitude: longitude, pageNumber: 1) { result in
             switch result {
             case .success(let photos):
                 self.photosFromAPI = photos.photo

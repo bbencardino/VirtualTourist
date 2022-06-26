@@ -14,9 +14,15 @@ final class FlickrAPI: RepositoryProtocol {
 
     func getImages(latitude: Double,
                    longitude: Double,
+                   pageNumber: Int,
                    completion: @escaping (Result<Photos, NetworkError>) -> Void) {
-        // swiftlint: disable line_length
-        let photosString = Endpoint.baseString + "rest/?method=flickr.photos.search" + "&api_key=\(Auth.key)" + "&lat=\(latitude)" + "&lon=\(longitude)" + "&format=json&nojsoncallback=1"
+        let photosString = Endpoint.baseString +
+        "rest/?method=flickr.photos.search" +
+        "&api_key=\(Auth.key)" +
+        "&lat=\(latitude)" +
+        "&lon=\(longitude)" +
+        "&page=\(pageNumber)" +
+        "&format=json&nojsoncallback=1"
 
         guard let url = URL(string: photosString) else { fatalError("🤯: Wrong URL") }
 

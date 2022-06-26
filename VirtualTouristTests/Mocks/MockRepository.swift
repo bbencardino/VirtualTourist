@@ -5,6 +5,7 @@ class MockRepository: RepositoryProtocol {
 
     func getImages(latitude: Double,
                    longitude: Double,
+                   pageNumber: Int,
                    completion: @escaping (Result<Photos, NetworkError>) -> Void) {
         let photoArray = [Photo(id: "1234", secret: "1234", server: "1232"),
                           Photo(id: "14234", secret: "12f34", server: "12d32"),
