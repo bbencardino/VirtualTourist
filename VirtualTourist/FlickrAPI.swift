@@ -22,10 +22,10 @@ final class FlickrAPI: RepositoryProtocol {
         "&lat=\(latitude)" +
         "&lon=\(longitude)" +
         "&page=\(pageNumber)" +
+        "&per_page=10" +
         "&format=json&nojsoncallback=1"
 
         guard let url = URL(string: photosString) else { fatalError("🤯: Wrong URL") }
-
         let dataTask = URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else {
                 completion(.failure(.badURL))
@@ -35,7 +35,7 @@ final class FlickrAPI: RepositoryProtocol {
             let decoder = JSONDecoder()
             do {
                 let photoAlbum = try decoder.decode(PhotoAlbum.self, from: data)
-                    completion(.success(photoAlbum.photos))
+                completion(.success(photoAlbum.photos))
 
             } catch {
                 completion(.failure(.serviceError))

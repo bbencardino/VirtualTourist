@@ -18,10 +18,7 @@ class PhotoAlbumViewController: UIViewController {
         configurePhotoAlbumLayout()
         viewModel.reloadView = reloadData
 
-        viewModel.showPhotos { [weak self] in
-                self?.reloadData()
-                self?.viewModel.downloadImages { _ in }
-        }
+        viewModel.fetchPhotos()
     }
 
     private func reloadData() {

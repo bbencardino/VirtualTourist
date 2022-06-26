@@ -26,6 +26,12 @@ final class CoreData: Database {
         }
     }
 
+    func getImages(from albumID: UUID) -> [Image]? {
+       let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Image")
+        fetchRequest.predicate = NSPredicate(format: "album.id == %@", albumID.uuidString)
+        return try? context.fetch(fetchRequest) as? [Image]
+    }
+
     func createImage(for album: Album, blob: Data, url: String, id: Int64) {
         context.performAndWait {
             let newImage = Image(context: context)
@@ -42,10 +48,22 @@ final class CoreData: Database {
         save()
     }
 
+    func deleteImages(from album: Album) {
+        guard let id = album.id else { return }
+        let imagesToDelete = getImages(from: id)
+
+        imagesToDelete?.forEach({ image in
+            context.delete(image)
+        })
+
+        save()
+    }
+
     // MARK: - Helper functions
     private func createPhotoAlbum(status: PhotoAlbumStatus, pin: Pin) {
         context.performAndWait {
             let newAlbum = Album(context: context)
+            newAlbum.id = UUID()
             newAlbum.status = status.rawValue
             newAlbum.pin = pin
         }

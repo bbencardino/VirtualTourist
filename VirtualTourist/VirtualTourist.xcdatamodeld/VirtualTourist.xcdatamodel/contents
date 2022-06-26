@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Album" representedClassName="Album" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Image" inverseName="album" inverseEntity="Image"/>
         <relationship name="pin" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Pin" inverseName="album" inverseEntity="Pin"/>
@@ -17,8 +18,8 @@
         <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="pin" inverseEntity="Album"/>
     </entity>
     <elements>
-        <element name="Album" positionX="-282.125" positionY="-0.609375" width="128" height="88"/>
-        <element name="Image" positionX="36.7421875" positionY="33.92578125" width="128" height="89"/>
+        <element name="Album" positionX="-286.50390625" positionY="1.5234375" width="128" height="103"/>
+        <element name="Image" positionX="36.7421875" positionY="33.92578125" width="128" height="103"/>
         <element name="Pin" positionX="-588.38671875" positionY="131.26171875" width="128" height="88"/>
     </elements>
 </model>
