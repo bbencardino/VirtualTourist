@@ -5,18 +5,23 @@ final class PhotoAlbumViewModel {
     private let service: RepositoryProtocol
     private let database: Database
     private var photosFromAPI: [Photo] = []
+
     private let album: Album
-    var isNewCollectionEnabled: Bool {
-        let status = PhotoAlbumStatus(rawValue: album.status ?? "")
-        return status == .done
+    private var albumStatus: PhotoAlbumStatus {
+        PhotoAlbumStatus(rawValue: album.status ?? "") ?? .notStarted
     }
+    var isNewCollectionEnabled: Bool { albumStatus == .done }
+
     var reloadView: (() -> Void)?
 
     private var cachedImages: [Image] {
-        if let imagesFromPhotoAlbum = album.images {
-             return imagesFromPhotoAlbum.allObjects as! [Image]
+
+        guard let imagesFromPhotoAlbum = album.images,
+              imagesFromPhotoAlbum.allObjects.isEmpty == false,
+              let images = imagesFromPhotoAlbum.allObjects as? [Image] else {
+            return []
         }
-        return []
+        return images
     }
 
     var latitude: Double
@@ -52,12 +57,12 @@ final class PhotoAlbumViewModel {
     // MARK: - Data Source
     func numberOfItems() -> Int {
         // TODO: next story implement label
-        return photosFromAPI.isEmpty ? cachedImages.count : photosFromAPI.count
+        return albumStatus == .done ? cachedImages.count : photosFromAPI.count
     }
 
     func image(at index: Int) -> UIImage? {
 
-        if album.status == PhotoAlbumStatus.done.rawValue {
+        if albumStatus == .done {
             let sortedImages = cachedImages.sorted { $0.id > $1.id }
 
             guard
@@ -82,15 +87,26 @@ final class PhotoAlbumViewModel {
     // download all photos in one go.
     func downloadImages(_ completion: @escaping (Result<Void, Error>) -> Void) {
         changeAlbumStatus(to: .downloading)
+        let imagesInAlbum = cachedImages.map { $0.id }
+
         photosFromAPI.forEach { photo in
-            let imageName = getImageName(from: photo)
-            guard let url = URL(string: imageName),
-               let data = service.downloadContent(from: url) else {
-                completion(.failure(NSError(domain: "🤯", code: 24)))
-                return
+            guard let id = Int64(photo.id) else { return }
+
+            if imagesInAlbum.contains(id) {
+                self.reloadView?()
+            } else {
+                let imageName = getImageName(from: photo)
+                guard let url = URL(string: imageName),
+                   let data = service.downloadContent(from: url) else {
+                    completion(.failure(NSError(domain: "🤯", code: 24)))
+                    return
+                }
+                self.database.createImage(for: self.album,
+                                          blob: data,
+                                          url: imageName,
+                                          id: id)
+                self.reloadView?()
             }
-            self.database.createImage(for: self.album, blob: data, url: imageName, id: Int(photo.id)!)
-            self.reloadView?()
         }
         changeAlbumStatus(to: .done)
         completion(.success(()))
@@ -105,6 +121,6 @@ final class PhotoAlbumViewModel {
     }
 
     func showPhotos(_ completion: @escaping () -> Void) {
-        album.status == PhotoAlbumStatus.done.rawValue ? reloadView?() : getPhotosFromFlickr(completion)
+        albumStatus == .done ? reloadView?() : getPhotosFromFlickr(completion)
     }
 }

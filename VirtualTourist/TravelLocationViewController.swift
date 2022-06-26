@@ -5,29 +5,27 @@ final class TravelLocationViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
-    private let viewModel: TravelLocationViewModel
-
-    required init?(coder: NSCoder, viewModel: TravelLocationViewModel) {
-        self.viewModel = viewModel
-
-        super.init(coder: coder)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("Use `init(coder:viewModel:)` to instantiate a `ViewController` instance.")
-    }
+    var viewModel: TravelLocationViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         mapView.region.center = viewModel.center
         mapView.region.span = viewModel.zoomLevel
         viewModel.saveLocationHasBeenLoaded()
         setMapView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navBarAppears(false)
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
+        navBarAppears(true)
         viewModel.saveLastPosition(region: mapView.region)
     }
 
@@ -78,6 +76,15 @@ final class TravelLocationViewController: UIViewController {
 extension TravelLocationViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: true)
         performSegue(withIdentifier: "toPhotoAlbum", sender: view)
+    }
+}
+
+// MARK: - Helpers
+extension TravelLocationViewController {
+    private func navBarAppears(_ isVisible: Bool) {
+        navigationController?.setNavigationBarHidden(!isVisible,
+                                                     animated: false)
     }
 }

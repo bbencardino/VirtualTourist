@@ -27,12 +27,12 @@ final class CoreData: Database {
         }
     }
 
-    func createImage(for album: Album, blob: Data, url: String, id: Int) {
+    func createImage(for album: Album, blob: Data, url: String, id: Int64) {
         context.performAndWait {
             let newImage = Image(context: context)
             newImage.blob = blob
             newImage.url = url
-            newImage.id = Int64(id)
+            newImage.id = id
             album.addToImages(newImage)
             save()
         }

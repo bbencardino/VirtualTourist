@@ -11,7 +11,7 @@ class PhotoAlbumDataSource: NSObject, UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        viewModel.numberOfItems()
     }
 
     func collectionView(_ collectionView: UICollectionView,
