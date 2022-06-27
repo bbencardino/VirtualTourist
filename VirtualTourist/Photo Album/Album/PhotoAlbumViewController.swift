@@ -4,6 +4,7 @@ import UIKit
 class PhotoAlbumViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var noImageView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectButton: UIButton!
@@ -39,9 +40,15 @@ class PhotoAlbumViewController: UIViewController {
 
     private func reloadData() {
         DispatchQueue.main.async {
+            self.updateView()
             self.collectionView.reloadData()
-            self.newCollectButton.isEnabled = self.viewModel.isNewCollectionEnabled
+            self.newCollectButton.isEnabled =  self.viewModel.isNewCollectionEnabled
         }
+    }
+
+    private func updateView() {
+        noImageView.isHidden = viewModel.isNoImageViewHidden
+        newCollectButton.isEnabled = viewModel.isNewCollectionEnabled
     }
 
     private func setupMapView() {

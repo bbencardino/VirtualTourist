@@ -173,9 +173,8 @@
 		5E3A471128690602003B7F8F /* Photo Album */ = {
 			isa = PBXGroup;
 			children = (
+				5E3A471F2869D78B003B7F8F /* Album */,
 				5E3A471228690602003B7F8F /* CollectionView */,
-				5E3A471628690602003B7F8F /* PhotoAlbumViewController.swift */,
-				5E3A471728690602003B7F8F /* PhotoAlbumViewModel.swift */,
 			);
 			path = "Photo Album";
 			sourceTree = "<group>";
@@ -183,11 +182,28 @@
 		5E3A471228690602003B7F8F /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				5E3A471D2869D61B003B7F8F /* Photo Album Cell */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		5E3A471D2869D61B003B7F8F /* Photo Album Cell */ = {
+			isa = PBXGroup;
+			children = (
 				5E3A471328690602003B7F8F /* PhotoAlbumCell.swift */,
 				5E3A471428690602003B7F8F /* PhotoAlbumDataSource.swift */,
 				5E3A471528690602003B7F8F /* PhotoAlbumDelegate.swift */,
 			);
-			path = CollectionView;
+			path = "Photo Album Cell";
+			sourceTree = "<group>";
+		};
+		5E3A471F2869D78B003B7F8F /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				5E3A471728690602003B7F8F /* PhotoAlbumViewModel.swift */,
+				5E3A471628690602003B7F8F /* PhotoAlbumViewController.swift */,
+			);
+			path = Album;
 			sourceTree = "<group>";
 		};
 		5E4BD214283D1D45006FC334 /* Travel Location Tests */ = {

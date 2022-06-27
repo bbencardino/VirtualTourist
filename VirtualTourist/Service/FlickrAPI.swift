@@ -22,7 +22,7 @@ final class FlickrAPI: RepositoryProtocol {
         "&lat=\(latitude)" +
         "&lon=\(longitude)" +
         "&page=\(pageNumber)" +
-        "&per_page=10" +
+        "&per_page=18" +
         "&format=json&nojsoncallback=1"
 
         guard let url = URL(string: photosString) else { fatalError("🤯: Wrong URL") }
