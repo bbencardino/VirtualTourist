@@ -69,7 +69,6 @@ final class TravelLocationViewController: UIViewController {
                 let annotation = annotationView.annotation
             else { return }
             destination.viewModel = viewModel.makePhotoAlbumViewModel(coordinate: annotation.coordinate)
-            print("coordenada::: \(annotation.coordinate)")
         }
     }
 }

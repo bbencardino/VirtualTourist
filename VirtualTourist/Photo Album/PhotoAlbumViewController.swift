@@ -7,7 +7,7 @@ class PhotoAlbumViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectButton: UIButton!
-    
+
     var viewModel: PhotoAlbumViewModel!
 
     lazy var photoAlbumDataSource = PhotoAlbumDataSource(viewModel: viewModel)
@@ -16,16 +16,10 @@ class PhotoAlbumViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = photoAlbumDataSource
         configurePhotoAlbumLayout()
+        setupMapView()
+
         viewModel.reloadView = reloadData
-
         viewModel.fetchPhotos()
-    }
-
-    private func reloadData() {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            self.newCollectButton.isEnabled = self.viewModel.isNewCollectionEnabled
-        }
     }
 
     @IBAction func createNewCollection(_ sender: UIButton) {
@@ -41,5 +35,21 @@ class PhotoAlbumViewController: UIViewController {
         flowLayout.minimumLineSpacing = space
         flowLayout.minimumInteritemSpacing = space
         flowLayout.itemSize = CGSize(width: dimension, height: dimension)
+    }
+
+    private func reloadData() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.newCollectButton.isEnabled = self.viewModel.isNewCollectionEnabled
+        }
+    }
+
+    private func setupMapView() {
+        let coordinate = CLLocationCoordinate2D(latitude: viewModel.latitude,
+                                                longitude: viewModel.longitude)
+        let region = MKCoordinateRegion(center: coordinate,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.05,
+                                                               longitudeDelta: 0.05))
+        mapView.setRegion(region, animated: true)
     }
 }

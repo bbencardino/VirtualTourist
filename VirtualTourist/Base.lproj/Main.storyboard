@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aQJ-wA-7LJ">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,16 +12,16 @@
         <!--Navigation Controller-->
         <scene sceneID="wZQ-03-RH5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mAe-oV-3nX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="aQJ-wA-7LJ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ywz-bL-Vmx">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="1vF-F1-rPy"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mAe-oV-3nX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-762" y="178"/>
         </scene>
@@ -30,11 +30,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TravelLocationViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="m5s-qs-O29">
-                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                                <rect key="frame" x="0.0" y="-44" width="320" height="558"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -43,7 +43,7 @@
                             <constraint firstItem="m5s-qs-O29" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7w7-hm-y3Q"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m5s-qs-O29" secondAttribute="trailing" id="VzU-0b-37a"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="m5s-qs-O29" secondAttribute="bottom" constant="-34" id="b83-QW-ZZu"/>
-                            <constraint firstItem="m5s-qs-O29" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-44" id="qWQ-F4-jMw"/>
+                            <constraint firstItem="m5s-qs-O29" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-88" id="qWQ-F4-jMw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OJR-Hl-oWV"/>
@@ -54,24 +54,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="124.6376811594203" y="83.705357142857139"/>
+            <point key="canvasLocation" x="124" y="83.497536945812811"/>
         </scene>
         <!--Photo Album View Controller-->
         <scene sceneID="Go8-Mo-sVB">
             <objects>
                 <viewController id="hV9-r9-VJf" customClass="PhotoAlbumViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BVk-6t-fPC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vTF-UW-1aF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="304"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="344"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="304" id="LYN-aY-lkt"/>
+                                    <constraint firstAttribute="height" constant="344" id="LYN-aY-lkt"/>
                                 </constraints>
                             </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="azT-0S-2kg">
-                                <rect key="frame" x="0.0" y="342" width="375" height="389"/>
+                                <rect key="frame" x="0.0" y="298" width="320" height="135"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aiI-2C-9Ax">
                                     <size key="itemSize" width="120" height="120"/>
@@ -106,7 +106,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XbO-s5-E0j">
-                                <rect key="frame" x="126.66666666666666" y="739" width="121.66666666666666" height="31"/>
+                                <rect key="frame" x="99" y="441" width="122" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="New Collection"/>
                                 <connections>
@@ -139,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qHq-a6-4Lr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="979.71014492753636" y="99.776785714285708"/>
+            <point key="canvasLocation" x="978.39999999999998" y="99.753694581280797"/>
         </scene>
     </scenes>
     <resources>
