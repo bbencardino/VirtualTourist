@@ -16,8 +16,9 @@ class PhotoAlbumViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = photoAlbumDataSource
         configurePhotoAlbumLayout()
-        viewModel.reloadView = reloadData
+        setupMapView()
 
+        viewModel.reloadView = reloadData
         viewModel.fetchPhotos()
     }
 
@@ -41,5 +42,14 @@ class PhotoAlbumViewController: UIViewController {
             self.collectionView.reloadData()
             self.newCollectButton.isEnabled = self.viewModel.isNewCollectionEnabled
         }
+    }
+
+    private func setupMapView() {
+        let coordinate = CLLocationCoordinate2D(latitude: viewModel.latitude,
+                                                longitude: viewModel.longitude)
+        let region = MKCoordinateRegion(center: coordinate,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.05,
+                                                               longitudeDelta: 0.05))
+        mapView.setRegion(region, animated: true)
     }
 }
