@@ -59,6 +59,12 @@ final class CoreData: Database {
         save()
     }
 
+    func deleteImage(_ image: Image) {
+
+        context.delete(image)
+        save()
+    }
+
     // MARK: - Helper functions
     private func createPhotoAlbum(status: PhotoAlbumStatus, pin: Pin) {
         context.performAndWait {

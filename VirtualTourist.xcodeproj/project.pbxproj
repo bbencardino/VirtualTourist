@@ -200,8 +200,8 @@
 		5E3A471F2869D78B003B7F8F /* Album */ = {
 			isa = PBXGroup;
 			children = (
-				5E3A471728690602003B7F8F /* PhotoAlbumViewModel.swift */,
 				5E3A471628690602003B7F8F /* PhotoAlbumViewController.swift */,
+				5E3A471728690602003B7F8F /* PhotoAlbumViewModel.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";

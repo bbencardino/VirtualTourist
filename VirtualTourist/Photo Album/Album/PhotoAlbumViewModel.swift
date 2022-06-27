@@ -7,9 +7,9 @@ final class PhotoAlbumViewModel {
     private var photosFromAPI: [Photo] = []
 
     private var totalPhotos: Int = 0
-    private var maxPages: Int?
+    private var maxPages: Int = 0
     private var pageNumber: Int {
-        let maxPages = maxPages ?? 1
+        guard maxPages > 0 else { return 1 }
         return Int.random(in: 1...maxPages)
     }
 
@@ -17,9 +17,9 @@ final class PhotoAlbumViewModel {
     private var albumStatus: PhotoAlbumStatus {
         PhotoAlbumStatus(rawValue: album.status ?? "") ?? .notStarted
     }
-    var isNewCollectionEnabled: Bool { albumStatus == .done }
+    var isNewCollectionEnabled: Bool { albumStatus == .done && maxPages > 0 }
     var isNoImageViewHidden: Bool {
-        !(totalPhotos == 0 && albumStatus != .done)
+        cachedImages.count != 0 || albumStatus != .done
     }
 
     var reloadView: (() -> Void)?
@@ -31,7 +31,7 @@ final class PhotoAlbumViewModel {
               let images = imagesFromPhotoAlbum.allObjects as? [Image] else {
             return []
         }
-        return images
+        return images.sorted { $0.id > $1.id }
     }
 
     var latitude: Double
@@ -58,7 +58,7 @@ final class PhotoAlbumViewModel {
             case .success(let photos):
                 self.totalPhotos = photos.total
                 self.maxPages = photos.pages
-                self.photosFromAPI = photos.photo
+                self.photosFromAPI = photos.photo.sorted { $0.id > $1.id }
                 completion()
             case .failure(let error):
                 print(error.localizedDescription)
@@ -73,12 +73,9 @@ final class PhotoAlbumViewModel {
     }
 
     func image(at index: Int) -> UIImage? {
-
         if albumStatus == .done {
-            let sortedImages = cachedImages.sorted { $0.id > $1.id }
-
             guard
-                let blob = sortedImages[index].blob else { return nil }
+                let blob = cachedImages[index].blob else { return nil }
             return UIImage(data: blob)
 
         } else {
@@ -90,6 +87,14 @@ final class PhotoAlbumViewModel {
             else { return nil }
             return UIImage(data: blob)
         }
+    }
+
+    // MARK: Collection View Delegate
+    func deleteImage(at index: Int) {
+        guard albumStatus == .done else { return }
+        let imageToDelete = cachedImages[index]
+        database.deleteImage(imageToDelete)
+        reloadView?()
     }
 
     // MARK: - Photos
@@ -128,9 +133,8 @@ final class PhotoAlbumViewModel {
                                           id: id)
                 self.reloadView?()
             }
-            changeAlbumStatus(to: .done)
         }
-
+        changeAlbumStatus(to: .done)
         completion(.success(()))
     }
     // MARK: - Album
