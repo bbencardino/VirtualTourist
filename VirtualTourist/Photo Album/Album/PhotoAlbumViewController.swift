@@ -12,10 +12,12 @@ class PhotoAlbumViewController: UIViewController {
     var viewModel: PhotoAlbumViewModel!
 
     lazy var photoAlbumDataSource = PhotoAlbumDataSource(viewModel: viewModel)
+    lazy var photoAlbumDelegate = PhotoAlbumDelegate(viewModel: viewModel)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = photoAlbumDataSource
+        collectionView.delegate = photoAlbumDelegate
         configurePhotoAlbumLayout()
         setupMapView()
 
@@ -40,9 +42,8 @@ class PhotoAlbumViewController: UIViewController {
 
     private func reloadData() {
         DispatchQueue.main.async {
-            self.updateView()
             self.collectionView.reloadData()
-            self.newCollectButton.isEnabled =  self.viewModel.isNewCollectionEnabled
+            self.updateView()
         }
     }
 
