@@ -6,6 +6,7 @@ final class PhotoAlbumViewModel {
     private let database: Database
     private var photosFromAPI: [Photo] = []
 
+    private var totalPhotos: Int = 0
     private var maxPages: Int?
     private var pageNumber: Int {
         let maxPages = maxPages ?? 1
@@ -17,6 +18,9 @@ final class PhotoAlbumViewModel {
         PhotoAlbumStatus(rawValue: album.status ?? "") ?? .notStarted
     }
     var isNewCollectionEnabled: Bool { albumStatus == .done }
+    var isNoImageViewHidden: Bool {
+        !(totalPhotos == 0 && albumStatus != .done)
+    }
 
     var reloadView: (() -> Void)?
 
@@ -52,6 +56,7 @@ final class PhotoAlbumViewModel {
         service.getImages(latitude: latitude, longitude: longitude, pageNumber: pageNumber) { result in
             switch result {
             case .success(let photos):
+                self.totalPhotos = photos.total
                 self.maxPages = photos.pages
                 self.photosFromAPI = photos.photo
                 completion()
@@ -64,7 +69,6 @@ final class PhotoAlbumViewModel {
 
     // MARK: - Data Source
     func numberOfItems() -> Int {
-        // TODO: next story implement label
         albumStatus == .done ? cachedImages.count : photosFromAPI.count
     }
 
@@ -88,8 +92,17 @@ final class PhotoAlbumViewModel {
         }
     }
 
-    private func getImageName(from photo: Photo) -> String {
-         "https://live.staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg"
+    // MARK: - Photos
+    func fetchPhotos() {
+        if albumStatus == .done {
+            reloadView?()
+
+        } else {
+            getPhotosFromFlickr {
+                self.reloadView?()
+                self.downloadImages { _ in }
+            }
+        }
     }
 
     // download all photos in one go.
@@ -115,29 +128,12 @@ final class PhotoAlbumViewModel {
                                           id: id)
                 self.reloadView?()
             }
+            changeAlbumStatus(to: .done)
         }
-        changeAlbumStatus(to: .done)
+
         completion(.success(()))
     }
-
-    private func changeAlbumStatus(to status: PhotoAlbumStatus) {
-
-        // 1. database must be updated
-        database.changeStatus(of: album, to: status)
-        // 2. should notify view controller
-        reloadView?()
-    }
-
-    func fetchPhotos() {
-        if albumStatus == .done {
-            reloadView?()
-        } else {
-            getPhotosFromFlickr {
-                self.reloadView?()
-                self.downloadImages { _ in }
-            }
-        }
-    }
+    // MARK: - Album
 
     func createNewCollection() {
         // 1.empty album
@@ -150,5 +146,18 @@ final class PhotoAlbumViewModel {
 
         // 3.new photos are downloaded
         fetchPhotos()
+    }
+
+    // MARK: - Helper methods
+    private func getImageName(from photo: Photo) -> String {
+         "https://live.staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg"
+    }
+
+    private func changeAlbumStatus(to status: PhotoAlbumStatus) {
+
+        // 1. database must be updated
+        database.changeStatus(of: album, to: status)
+        // 2. should notify view controller
+        reloadView?()
     }
 }
