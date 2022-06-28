@@ -76,10 +76,6 @@ final class CoreData: Database {
     }
 
     private func save() {
-        do {
-            try context.save()
-        } catch {
-            // TODO: Handle error
-        }
+        try? context.save()
     }
 }

@@ -62,7 +62,6 @@ final class PhotoAlbumViewModel {
                 completion()
             case .failure(let error):
                 print(error.localizedDescription)
-                // TODO: Show alert
             }
         }
     }
