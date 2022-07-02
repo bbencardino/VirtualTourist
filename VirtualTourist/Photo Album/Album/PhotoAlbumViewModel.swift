@@ -7,9 +7,11 @@ final class PhotoAlbumViewModel {
     private var photosFromAPI: [Photo] = []
 
     private var totalPhotos: Int = 0
-    private var maxPages: Int = 0
+    private var maxPages: Int?
     private var pageNumber: Int {
-        guard maxPages > 0 else { return 1 }
+
+        guard let maxPages = maxPages,
+              maxPages > 0 else { return 1 }
         return Int.random(in: 1...maxPages)
     }
 
@@ -17,7 +19,9 @@ final class PhotoAlbumViewModel {
     private var albumStatus: PhotoAlbumStatus {
         PhotoAlbumStatus(rawValue: album.status ?? "") ?? .notStarted
     }
-    var isNewCollectionEnabled: Bool { albumStatus == .done && maxPages > 0 }
+    var isNewCollectionEnabled: Bool {
+        albumStatus == .done && maxPages != 0
+    }
     var isNoImageViewHidden: Bool {
         cachedImages.count != 0 || albumStatus != .done
     }
@@ -25,9 +29,8 @@ final class PhotoAlbumViewModel {
     var reloadView: (() -> Void)?
 
     private var cachedImages: [Image] {
-
         guard let imagesFromPhotoAlbum = album.images,
-              imagesFromPhotoAlbum.allObjects.isEmpty == false,
+              imagesFromPhotoAlbum.count > 0,
               let images = imagesFromPhotoAlbum.allObjects as? [Image] else {
             return []
         }
