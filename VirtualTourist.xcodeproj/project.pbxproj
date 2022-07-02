@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5E3A46FB28690476003B7F8F /* PhotoAlbumStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A46F328690476003B7F8F /* PhotoAlbumStatus.swift */; };
 		5E3A46FC28690476003B7F8F /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A46F428690476003B7F8F /* VirtualTourist.xcdatamodeld */; };
-		5E3A46FD28690476003B7F8F /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A46F628690476003B7F8F /* CoreData.swift */; };
+		5E3A46FD28690476003B7F8F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A46F628690476003B7F8F /* CoreDataManager.swift */; };
 		5E3A46FE28690476003B7F8F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A46F728690476003B7F8F /* Database.swift */; };
 		5E3A46FF28690476003B7F8F /* UserDataDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A46F928690476003B7F8F /* UserDataDefaults.swift */; };
 		5E3A470028690476003B7F8F /* UserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A46FA28690476003B7F8F /* UserDefaultsProtocol.swift */; };
@@ -28,6 +28,8 @@
 		5E4BD219283D201A006FC334 /* PhotoAlbumDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4BD218283D201A006FC334 /* PhotoAlbumDataSourceTests.swift */; };
 		5E4BD21E283D383C006FC334 /* MockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4BD21D283D383C006FC334 /* MockRepository.swift */; };
 		5E4EEC352847EA860020CF4D /* PhotoAlbumViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4EEC342847EA860020CF4D /* PhotoAlbumViewModelTests.swift */; };
+		5E61614B28705C4E00B30B80 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E61614A28705C4E00B30B80 /* CoreDataStack.swift */; };
+		5E6C12D4286F7E3E0090F2F5 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6C12D3286F7E3E0090F2F5 /* TestCoreDataStack.swift */; };
 		5EA3BF1328354E7700D4F434 /* TravelLocationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA3BF1228354E7700D4F434 /* TravelLocationViewModelTests.swift */; };
 		5EC88D4F282D400E00F667CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D4E282D400E00F667CA /* AppDelegate.swift */; };
 		5EC88D51282D400E00F667CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC88D50282D400E00F667CA /* SceneDelegate.swift */; };
@@ -49,7 +51,7 @@
 /* Begin PBXFileReference section */
 		5E3A46F328690476003B7F8F /* PhotoAlbumStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumStatus.swift; sourceTree = "<group>"; };
 		5E3A46F528690476003B7F8F /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
-		5E3A46F628690476003B7F8F /* CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		5E3A46F628690476003B7F8F /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		5E3A46F728690476003B7F8F /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		5E3A46F928690476003B7F8F /* UserDataDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataDefaults.swift; sourceTree = "<group>"; };
 		5E3A46FA28690476003B7F8F /* UserDefaultsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsProtocol.swift; sourceTree = "<group>"; };
@@ -68,6 +70,8 @@
 		5E4BD218283D201A006FC334 /* PhotoAlbumDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumDataSourceTests.swift; sourceTree = "<group>"; };
 		5E4BD21D283D383C006FC334 /* MockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRepository.swift; sourceTree = "<group>"; };
 		5E4EEC342847EA860020CF4D /* PhotoAlbumViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewModelTests.swift; sourceTree = "<group>"; };
+		5E61614A28705C4E00B30B80 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		5E6C12D3286F7E3E0090F2F5 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		5EA3BF1228354E7700D4F434 /* TravelLocationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationViewModelTests.swift; sourceTree = "<group>"; };
 		5EC88D4B282D400E00F667CA /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC88D4E282D400E00F667CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,7 +124,8 @@
 			children = (
 				5E3A46F328690476003B7F8F /* PhotoAlbumStatus.swift */,
 				5E3A46F428690476003B7F8F /* VirtualTourist.xcdatamodeld */,
-				5E3A46F628690476003B7F8F /* CoreData.swift */,
+				5E3A46F628690476003B7F8F /* CoreDataManager.swift */,
+				5E61614A28705C4E00B30B80 /* CoreDataStack.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 			children = (
 				5E4B4E5628356DFC00B6A0DA /* UserDataMocked.swift */,
 				5E4BD21D283D383C006FC334 /* MockRepository.swift */,
+				5E6C12D3286F7E3E0090F2F5 /* TestCoreDataStack.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -409,11 +415,12 @@
 				5E3A46FC28690476003B7F8F /* VirtualTourist.xcdatamodeld in Sources */,
 				5E3A471828690602003B7F8F /* PhotoAlbumCell.swift in Sources */,
 				5E3A471C28690602003B7F8F /* PhotoAlbumViewModel.swift in Sources */,
-				5E3A46FD28690476003B7F8F /* CoreData.swift in Sources */,
+				5E3A46FD28690476003B7F8F /* CoreDataManager.swift in Sources */,
 				5E3A470D28690562003B7F8F /* PhotosResponse.swift in Sources */,
 				5E3A471B28690602003B7F8F /* PhotoAlbumViewController.swift in Sources */,
 				5E3A4704286904E6003B7F8F /* TravelLocationViewController.swift in Sources */,
 				5E3A471928690602003B7F8F /* PhotoAlbumDataSource.swift in Sources */,
+				5E61614B28705C4E00B30B80 /* CoreDataStack.swift in Sources */,
 				5E3A46FE28690476003B7F8F /* Database.swift in Sources */,
 				5EC88D4F282D400E00F667CA /* AppDelegate.swift in Sources */,
 				5EC88D51282D400E00F667CA /* SceneDelegate.swift in Sources */,
@@ -430,6 +437,7 @@
 				5E4BD21E283D383C006FC334 /* MockRepository.swift in Sources */,
 				5EA3BF1328354E7700D4F434 /* TravelLocationViewModelTests.swift in Sources */,
 				5E4BD219283D201A006FC334 /* PhotoAlbumDataSourceTests.swift in Sources */,
+				5E6C12D4286F7E3E0090F2F5 /* TestCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

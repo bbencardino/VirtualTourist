@@ -15,7 +15,7 @@ class TravelLocationViewModel {
     private let rioLong = -43.365894
 
     init(userDefaults: UserDefaultsProtocol = UserDataDefaults(),
-         database: Database = CoreData()) {
+         database: Database = CoreDataManager()) {
         self.userDefaults = userDefaults
         self.database = database
 

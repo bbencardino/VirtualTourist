@@ -8,9 +8,11 @@ class PhotoAlbumDataSourceTests: XCTestCase {
     var collectionView: UICollectionView!
 
     override func setUpWithError() throws {
+        let mockCoreDataManager = CoreDataManager(context: TestCoreDataStack.context)
+
         viewModel = PhotoAlbumViewModel(photoAlbum: Album(),
                                         service: MockRepository(),
-                                        database: CoreData(), // TODO: Implement mock
+                                        database: mockCoreDataManager,
                                         latitude: -23.000372,
                                         longitude: -43.365894)
         dataSource = PhotoAlbumDataSource(viewModel: viewModel)

@@ -1,24 +1,25 @@
 import XCTest
-@testable import VirtualTourist
 import MapKit
+@testable import VirtualTourist
 
 class TravelLocationViewModelTests: XCTestCase {
 
     var viewModel: TravelLocationViewModel!
     var mockedUserDefaults: UserDataMocked!
+    var mockCoreDataManager: CoreDataManager!
 
     override func setUpWithError() throws {
-        mockedUserDefaults = UserDataMocked(loaded: true)
-        viewModel = TravelLocationViewModel(userDefaults: mockedUserDefaults!, database: CoreData())
-    }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        mockCoreDataManager = CoreDataManager(context: TestCoreDataStack.context)
+
+        mockedUserDefaults = UserDataMocked(loaded: true)
+        viewModel = TravelLocationViewModel(userDefaults: mockedUserDefaults!, database: mockCoreDataManager)
     }
 
     func testLocationHasntBeenLoaded() {
         // GIVEN
-        let viewModel = TravelLocationViewModel(userDefaults: UserDataMocked(loaded: false), database: CoreData())
+        let viewModel = TravelLocationViewModel(userDefaults: UserDataMocked(loaded: false),
+                                                database: mockCoreDataManager)
         // THEN
         XCTAssertEqual(viewModel.center.longitude, -43.365894)
     }
@@ -30,7 +31,7 @@ class TravelLocationViewModelTests: XCTestCase {
         loadedUserDefaults.write(33.0, forKey: "longitude")
 
         // WHEN
-        let viewModel = TravelLocationViewModel(userDefaults: loadedUserDefaults, database: CoreData())
+        let viewModel = TravelLocationViewModel(userDefaults: loadedUserDefaults, database: mockCoreDataManager)
 
         // THEN
         XCTAssertEqual(viewModel.center.latitude, -42)

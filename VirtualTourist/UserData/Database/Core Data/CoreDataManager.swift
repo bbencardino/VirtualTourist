@@ -1,13 +1,15 @@
-import UIKit
 import CoreData
 
-final class CoreData: Database {
-
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+final class CoreDataManager: Database {
 
     var pins: [Pin]? { try? context.fetch(Pin.fetchRequest()) }
     var images: [Image]?
+    private let context: NSManagedObjectContext
 
+    init(context: NSManagedObjectContext = CoreDataStack.context) {
+        self.context = context
+    }
+    
     func createPin(latitude: Double, longitude: Double) {
         let newPin = Pin(context: context)
         newPin.latitude = latitude
@@ -75,7 +77,14 @@ final class CoreData: Database {
         }
     }
 
-    private func save() {
-        try? context.save()
+    func save() {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Can not save context \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
 }
