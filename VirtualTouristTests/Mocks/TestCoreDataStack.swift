@@ -1,10 +1,10 @@
 import CoreData
 
-struct TestCoreDataStack {
+final class TestCoreDataStack {
 
-    static let context = persistentContainer.viewContext
+    lazy var context = persistentContainer.viewContext
 
-    private static let persistentContainer: NSPersistentContainer = {
+    private let persistentContainer: NSPersistentContainer = {
         let description = NSPersistentStoreDescription()
         description.type = NSInMemoryStoreType
 

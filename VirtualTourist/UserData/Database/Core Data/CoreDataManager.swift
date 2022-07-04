@@ -9,7 +9,7 @@ final class CoreDataManager: Database {
     init(context: NSManagedObjectContext = CoreDataStack.context) {
         self.context = context
     }
-    
+
     func createPin(latitude: Double, longitude: Double) {
         let newPin = Pin(context: context)
         newPin.latitude = latitude
@@ -62,7 +62,6 @@ final class CoreDataManager: Database {
     }
 
     func deleteImage(_ image: Image) {
-
         context.delete(image)
         save()
     }

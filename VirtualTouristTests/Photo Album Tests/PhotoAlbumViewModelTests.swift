@@ -7,7 +7,7 @@ class PhotoAlbumViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
 
-        let mockCoreDataManager = CoreDataManager(context: TestCoreDataStack.context)
+        let mockCoreDataManager = CoreDataManager(context: TestCoreDataStack().context)
 
         viewModel = PhotoAlbumViewModel(photoAlbum: Album(),
                                         service: MockRepository(),

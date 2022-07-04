@@ -10,7 +10,7 @@ class TravelLocationViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
 
-        mockCoreDataManager = CoreDataManager(context: TestCoreDataStack.context)
+        mockCoreDataManager = CoreDataManager(context: TestCoreDataStack().context)
 
         mockedUserDefaults = UserDataMocked(loaded: true)
         viewModel = TravelLocationViewModel(userDefaults: mockedUserDefaults!, database: mockCoreDataManager)
