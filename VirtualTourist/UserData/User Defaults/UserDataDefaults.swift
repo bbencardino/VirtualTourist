@@ -1,6 +1,6 @@
 import Foundation
 
-class UserDataDefaults: UserDefaultsProtocol {
+final class UserDataDefaults: UserDefaultsProtocol {
     let userDefaults = UserDefaults.standard
 
     func write<T>(_ value: T, forKey key: String) {

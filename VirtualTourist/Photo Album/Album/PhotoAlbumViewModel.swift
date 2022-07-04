@@ -113,7 +113,7 @@ final class PhotoAlbumViewModel {
     }
 
     // download all photos in one go.
-    func downloadImages(_ completion: @escaping (Result<Void, Error>) -> Void) {
+    private func downloadImages(_ completion: @escaping (Result<Void, Error>) -> Void) {
         changeAlbumStatus(to: .downloading)
         let imagesInAlbum = cachedImages.map { $0.id }
 

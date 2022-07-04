@@ -6,10 +6,13 @@ class PhotoAlbumViewModelTests: XCTestCase {
     var viewModel: PhotoAlbumViewModel!
 
     override func setUpWithError() throws {
-        // change database
-        viewModel = PhotoAlbumViewModel(photoAlbum: Album(),
-            service: MockRepository(),
-                                        database: CoreData(),
+        // swiftlint: disable force_try
+        let album = try! MockDataFactory().makeAlbum()
+        let mockCoreDataManager = CoreDataManager(context: TestCoreDataStack().context)
+
+        viewModel = PhotoAlbumViewModel(photoAlbum: album,
+                                        service: MockRepository(),
+                                        database: mockCoreDataManager,
                                         latitude: -23.000372,
                                         longitude: -43.365894)
         viewModel.getPhotosFromFlickr {}

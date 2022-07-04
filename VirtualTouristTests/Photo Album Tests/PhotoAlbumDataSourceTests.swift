@@ -8,9 +8,12 @@ class PhotoAlbumDataSourceTests: XCTestCase {
     var collectionView: UICollectionView!
 
     override func setUpWithError() throws {
-        viewModel = PhotoAlbumViewModel(photoAlbum: Album(),
+        let mockCoreDataManager = CoreDataManager(context: TestCoreDataStack().context)
+        // swiftlint: disable force_try
+        let album = try! MockDataFactory().makeAlbum()
+        viewModel = PhotoAlbumViewModel(photoAlbum: album,
                                         service: MockRepository(),
-                                        database: CoreData(), // TODO: Implement mock
+                                        database: mockCoreDataManager,
                                         latitude: -23.000372,
                                         longitude: -43.365894)
         dataSource = PhotoAlbumDataSource(viewModel: viewModel)
@@ -20,17 +23,16 @@ class PhotoAlbumDataSourceTests: XCTestCase {
                                           collectionViewLayout: type(of: UICollectionViewLayout()).init())
         collectionView.register(PhotoAlbumCell.self, forCellWithReuseIdentifier: "PhotoCell")
         collectionView.dataSource = dataSource
-
     }
 
     override func tearDownWithError() throws {}
 
     func testNumbersOfItems() {
         // WHEN
-        let itensInRow = dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
+        let itemsInRow = dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
 
         // THEN
-        XCTAssertEqual(itensInRow, viewModel.numberOfItems())
+        XCTAssertEqual(itemsInRow, viewModel.numberOfItems())
     }
 
 //    func testCellForRow_ConvertImageFailed() {
