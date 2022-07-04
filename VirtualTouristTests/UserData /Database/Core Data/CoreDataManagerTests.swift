@@ -54,20 +54,20 @@ class CoreDataManagerTests: XCTestCase {
 
         // THEN
     }
-    func testDeleteImage() throws {
-=
-        let blob: Data = Data
-        // GIVEN
-        let album = try makeAlbum()
-        sut.createImage(for: album, blob: Data(), url: "url", id: 34)
-        let image = album.images?.first
-
-        // WHEN
-        sut.deleteImage(image)
-
-        // THEN
-        XCTAssertTrue(sut.images?.count == 0)
-    }
+//    func testDeleteImage() throws {
+//
+//        let blob: Data = Data
+//        // GIVEN
+//        let album = try makeAlbum()
+//        sut.createImage(for: album, blob: Data(), url: "url", id: 34)
+//        let image = album.images?.first
+//
+//        // WHEN
+//        sut.deleteImage(image)
+//
+//        // THEN
+//        XCTAssertTrue(sut.images?.count == 0)
+//    }
 }
 
 // MARK: - helper methods

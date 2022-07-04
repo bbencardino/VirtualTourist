@@ -37,6 +37,7 @@
 		5EC88D56282D400E00F667CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC88D54282D400E00F667CA /* Main.storyboard */; };
 		5EC88D5B282D401000F667CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC88D5A282D401000F667CA /* Assets.xcassets */; };
 		5EC88D5E282D401000F667CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC88D5C282D401000F667CA /* LaunchScreen.storyboard */; };
+		5EE8323528737428008117BC /* MockDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8323428737428008117BC /* MockDataFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		5EC88D5D282D401000F667CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EC88D5F282D401000F667CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EC88D64282D401100F667CA /* VirtualTouristTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EE8323428737428008117BC /* MockDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				5E61614F2870737A00B30B80 /* CoreDataManagerTests.swift */,
+				5EE8323428737428008117BC /* MockDataFactory.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				5E4BD21E283D383C006FC334 /* MockRepository.swift in Sources */,
 				5EA3BF1328354E7700D4F434 /* TravelLocationViewModelTests.swift in Sources */,
 				5E4BD219283D201A006FC334 /* PhotoAlbumDataSourceTests.swift in Sources */,
+				5EE8323528737428008117BC /* MockDataFactory.swift in Sources */,
 				5E6C12D4286F7E3E0090F2F5 /* TestCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

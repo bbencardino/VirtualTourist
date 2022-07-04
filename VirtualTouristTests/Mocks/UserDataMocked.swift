@@ -1,7 +1,7 @@
 import Foundation
 @testable import VirtualTourist
 
-class UserDataMocked: UserDefaultsProtocol {
+final class UserDataMocked: UserDefaultsProtocol {
 
     private var localStorage: [String: Any] = [:]
 
